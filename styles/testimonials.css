@@ -1,0 +1,122 @@
+/* Testimonials Section */
+#testimonials {
+  background-color: var(--bg-light);
+}
+
+.testimonials-container {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+.testimonial {
+  flex: 0 0 100%;
+  padding: 20px;
+  transition: transform 0.5s ease;
+}
+
+.testimonial-content {
+  background-color: var(--bg-light);
+  padding: 30px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.testimonial-content::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 30px;
+  width: 30px;
+  height: 30px;
+  background-color: var(--bg-light);
+  transform: rotate(45deg);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.05);
+}
+
+.testimonial-content p {
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-dark);
+}
+
+.testimonial-content p::before {
+  content: '\201C';
+  font-size: 3rem;
+  color: var(--accent-color);
+  opacity: 0.3;
+  position: absolute;
+  top: 10px;
+  left: 15px;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+}
+
+.testimonial-author img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+  border: 3px solid var(--accent-color);
+}
+
+.author-info h4 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.author-info p {
+  color: var(--text-gray);
+  font-size: 0.9rem;
+}
+
+.testimonial-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  background-color: #d1d1d1;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.dot.active {
+  background-color: var(--accent-color);
+  transform: scale(1.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .testimonial-content p {
+    font-size: 1rem;
+  }
+  
+  .testimonial-author img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonial-content {
+    padding: 20px;
+  }
+  
+  .author-info h4 {
+    font-size: 1rem;
+  }
+}

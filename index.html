@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Translatur - Viagens & Turismo</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/header.css">
+  <link rel="stylesheet" href="styles/hero.css">
+  <link rel="stylesheet" href="styles/services.css">
+  <link rel="stylesheet" href="styles/search.css">
+  <link rel="stylesheet" href="styles/testimonials.css">
+  <link rel="stylesheet" href="styles/footer.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <header id="header">
+    <div class="container">
+      <div class="logo">
+        <h1>Translatur</h1>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Serviços</a></li>
+          <li><a href="#search">Buscar</a></li>
+          <li><a href="#testimonials">Depoimentos</a></li>
+          <li><a href="#contact">Contato</a></li>
+        </ul>
+      </nav>
+      <div class="hamburger">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+  </header>
+
+  <section id="hero">
+    <div class="hero-content">
+      <h1>Descubra o mundo com a Translatur</h1>
+      <p>Passagens aéreas, hospedagens, passeios e muito mais!</p>
+      <a href="#search" class="btn-primary">Comece sua aventura</a>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <h2 class="section-title">Nossos Serviços</h2>
+      <div class="services-carousel">
+        <button class="carousel-nav prev"><i class="fas fa-chevron-left"></i></button>
+        <div class="services-container">
+          <div class="service-card">
+            <div class="service-image">
+              <img src="https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg" alt="Passagens Aéreas">
+            </div>
+            <div class="service-info">
+              <h3>Passagens Aéreas</h3>
+              <p>Encontre os melhores preços para qualquer destino</p>
+            </div>
+          </div>
+          <div class="service-card">
+            <div class="service-image">
+              <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg" alt="Hospedagens">
+            </div>
+            <div class="service-info">
+              <h3>Hospedagens</h3>
+              <p>Hotéis e pousadas com conforto e qualidade</p>
+            </div>
+          </div>
+          <div class="service-card">
+            <div class="service-image">
+              <img src="https://images.pexels.com/photos/1660995/pexels-photo-1660995.jpeg" alt="Passeios">
+            </div>
+            <div class="service-info">
+              <h3>Passeios</h3>
+              <p>Experiências inesquecíveis em destinos turísticos</p>
+            </div>
+          </div>
+          <div class="service-card">
+            <div class="service-image">
+              <img src="https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg" alt="Ingressos">
+            </div>
+            <div class="service-info">
+              <h3>Ingressos</h3>
+              <p>Acesso garantido às melhores atrações</p>
+            </div>
+          </div>
+          <div class="service-card">
+            <div class="service-image">
+              <img src="https://images.pexels.com/photos/5835496/pexels-photo-5835496.jpeg" alt="Translado">
+            </div>
+            <div class="service-info">
+              <h3>Translado</h3>
+              <p>Transporte seguro e pontual durante sua viagem</p>
+            </div>
+          </div>
+          <div class="service-card">
+            <div class="service-image">
+              <img src="https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg" alt="Cruzeiros">
+            </div>
+            <div class="service-info">
+              <h3>Cruzeiros</h3>
+              <p>Navios luxuosos para uma viagem inesquecível</p>
+            </div>
+          </div>
+          <div class="service-card">
+            <div class="service-image">
+              <img src="https://images.pexels.com/photos/7821741/pexels-photo-7821741.jpeg" alt="Seguro Viagem">
+            </div>
+            <div class="service-info">
+              <h3>Seguro Viagem</h3>
+              <p>Viaje com tranquilidade e segurança</p>
+            </div>
+          </div>
+          <div class="service-card">
+            <div class="service-image">
+              <img src="https://images.pexels.com/photos/3155666/pexels-photo-3155666.jpeg" alt="Pacotes Turísticos">
+            </div>
+            <div class="service-info">
+              <h3>Pacotes Turísticos</h3>
+              <p>Ofertas completas para sua viagem perfeita</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-nav next"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <section id="search">
+    <div class="container">
+      <h2 class="section-title">Encontre a Viagem Perfeita</h2>
+      <div class="search-container">
+        <div class="search-filters">
+          <div class="filter-group">
+            <label for="search-type">Tipo de Serviço</label>
+            <select id="search-type">
+              <option value="all">Todos os Serviços</option>
+              <option value="flights">Passagens Aéreas</option>
+              <option value="hotels">Hospedagens</option>
+              <option value="tours">Passeios</option>
+              <option value="tickets">Ingressos</option>
+              <option value="transfers">Translado</option>
+              <option value="cruises">Cruzeiros</option>
+              <option value="insurance">Seguro Viagem</option>
+              <option value="packages">Pacotes Turísticos</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="destination">Destino</label>
+            <input type="text" id="destination" placeholder="Para onde você quer ir?">
+          </div>
+          <div class="filter-group">
+            <label for="departure-date">Data de Ida</label>
+            <input type="date" id="departure-date">
+          </div>
+          <div class="filter-group">
+            <label for="return-date">Data de Volta</label>
+            <input type="date" id="return-date">
+          </div>
+          <div class="filter-group">
+            <label for="travelers">Passageiros</label>
+            <select id="travelers">
+              <option value="1">1 Passageiro</option>
+              <option value="2">2 Passageiros</option>
+              <option value="3">3 Passageiros</option>
+              <option value="4">4 Passageiros</option>
+              <option value="5+">5+ Passageiros</option>
+            </select>
+          </div>
+        </div>
+        <button class="search-button">Buscar</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <div class="container">
+      <h2 class="section-title">O Que Nossos Clientes Dizem</h2>
+      <div class="testimonials-container">
+        <div class="testimonial">
+          <div class="testimonial-content">
+            <p>"Minha viagem para a Europa foi perfeita graças à Translatur. Desde a compra das passagens até o seguro viagem, tudo foi muito bem organizado."</p>
+          </div>
+          <div class="testimonial-author">
+            <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg" alt="Cliente">
+            <div class="author-info">
+              <h4>Carlos Silva</h4>
+              <p>Rio de Janeiro</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-content">
+            <p>"O atendimento da Translatur é excepcional! Os preços são justos e o suporte durante a viagem me deixou tranquila para aproveitar minhas férias."</p>
+          </div>
+          <div class="testimonial-author">
+            <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg" alt="Cliente">
+            <div class="author-info">
+              <h4>Ana Oliveira</h4>
+              <p>São Paulo</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-content">
+            <p>"Os pacotes turísticos da Translatur são incríveis! Consegui economizar muito e aproveitei cada momento da minha viagem com a família."</p>
+          </div>
+          <div class="testimonial-author">
+            <img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg" alt="Cliente">
+            <div class="author-info">
+              <h4>Roberto Santos</h4>
+              <p>Belo Horizonte</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Translatur</h3>
+          <p>Sua agência de viagens completa, oferecendo os melhores serviços turísticos com qualidade e preços justos.</p>
+          <div class="social-media">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Serviços</h3>
+          <ul>
+            <li><a href="#">Passagens Aéreas</a></li>
+            <li><a href="#">Hospedagens</a></li>
+            <li><a href="#">Passeios</a></li>
+            <li><a href="#">Ingressos</a></li>
+            <li><a href="#">Translado</a></li>
+            <li><a href="#">Cruzeiros</a></li>
+            <li><a href="#">Seguro Viagem</a></li>
+            <li><a href="#">Pacotes Turísticos</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Contato</h3>
+          <ul class="contact-info">
+            <li><i class="fas fa-map-marker-alt"></i> Av. Paulista, 1000 - São Paulo</li>
+            <li><i class="fas fa-phone"></i> (11) 9999-9999</li>
+            <li><i class="fas fa-envelope"></i> contato@translatur.com</li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Newsletter</h3>
+          <p>Receba nossas ofertas e novidades</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Seu e-mail" required>
+            <button type="submit">Assinar</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Translatur. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="scripts/main.js"></script>
+</body>
+</html>
