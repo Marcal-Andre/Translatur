@@ -2,7 +2,7 @@
 #footer {
   background-color: var(--bg-dark);
   color: var(--text-light);
-  padding-top: 80px;
+  padding-top: 30px;
 }
 
 .footer-content {
@@ -57,7 +57,7 @@
 }
 
 .footer-column ul li {
-  margin-bottom: 10px;
+  margin-bottom: 4px;
 }
 
 .footer-column ul li a {
@@ -73,7 +73,7 @@
 .contact-info li {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 30px;
   margin-bottom: 15px;
   color: #a0a0a0;
 }
@@ -134,46 +134,5 @@
     gap: 25px;
   }
 
-  #footer {
-    padding: 20px 0;
-    font-size: 0.9em;
-  }
-  #footer .footer-content {
-    gap: 20px;
-    padding-bottom: 10px;
-  }
-  #footer .footer-column h3 {
-    font-size: 1.1em;
-    margin-bottom: 8px;
-  }
-  #footer .footer-column p,
-  #footer .footer-column ul,
-  #footer .footer-column li,
-  #footer .footer-column form,
-  #footer .footer-column input,
-  #footer .footer-column button {
-    font-size: 0.9em;
-  }
-  #footer .footer-column input[type="email"] {
-    padding: 5px 8px;
-    font-size: 0.9em;
-    height: 28px;
-  }
-  #footer .footer-column button {
-    padding: 5px 12px;
-    font-size: 0.9em;
-    height: 28px;
-  }
-  #footer .social-media a {
-    font-size: 1em;
-    margin-right: 8px;
-  }
-  #footer .footer-bottom {
-    font-size: 0.85em;
-    padding-top: 8px;
-  }
-  #footer .contact-info li i {
-    font-size: 0.95em;
-    margin-right: 5px;
-  }
+ 
 }
