@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupSearch();
   initTestimonials();
   setupMobileMenu();
+  setupHeaderSearch();
   
   // Handle header scroll effect
   handleHeaderScroll();
@@ -25,6 +26,28 @@ function handleHeaderScroll() {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
+    }
+  });
+}
+
+// Setup header search functionality
+function setupHeaderSearch() {
+  const searchInput = document.getElementById('headerSearchInput');
+  const searchBtn = document.getElementById('headerSearchBtn');
+
+  const performSearch = () => {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    
+    if (searchTerm) {
+      window.location.href = `cruzeiros.html?destino=${encodeURIComponent(searchTerm)}`;
+    }
+  };
+
+  searchBtn.addEventListener('click', performSearch);
+
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      performSearch();
     }
   });
 }

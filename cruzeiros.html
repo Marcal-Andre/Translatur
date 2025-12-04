@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cruzeiros Translatur - Pacotes Turísticos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 15px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .cart-button {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cart-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        .cart-button i {
+            font-size: 1.8em;
+            color: #667eea;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #f5576c;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 450px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.3);
+            z-index: 1001;
+            transition: right 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h2 {
+            font-size: 1.6em;
+        }
+
+        .cart-close {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.8em;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .cart-item {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+            position: relative;
+        }
+
+        .cart-item-image {
+            width: 100px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .cart-item-destination {
+            font-size: 0.85em;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .cart-item-remove {
+            background: #f5576c;
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .cart-item-remove:hover {
+            background: #d43f54;
+        }
+
+        .cart-item-remove i {
+            font-size: 1.1em;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .cart-empty i {
+            font-size: 4em;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+
+        .cart-empty p {
+            font-size: 1.1em;
+        }
+
+        .cart-footer {
+            padding: 20px 25px;
+            border-top: 2px solid #f0f0f0;
+            background: white;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .cart-total-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .cart-total-value {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 1.4em;
+        }
+
+        .cart-checkout {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cart-checkout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .cart-overlay.active {
+            display: block;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+
+        .package-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+
+        .package-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+        }
+
+        .package-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            position: relative;
+        }
+
+        .package-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.75em;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        .package-content {
+            padding: 18px;
+        }
+
+        .package-destination {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .package-title {
+            font-size: 1.4em;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .package-description {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 14px;
+            font-size: 0.88em;
+        }
+
+        .package-details {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #555;
+            font-size: 0.8em;
+        }
+
+        .detail-icon {
+            width: 16px;
+            height: 16px;
+            color: #667eea;
+        }
+
+        .package-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 14px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .package-price {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-label {
+            font-size: 0.75em;
+            color: #999;
+            margin-bottom: 3px;
+        }
+
+        .price-value {
+            font-size: 1.6em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-reserve {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 22px;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 3px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-reserve:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 18px rgba(102, 126, 234, 0.6);
+        }
+
+        .featured-badge {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+        }
+
+        .luxury-badge {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .package-title {
+                font-size: 1.5em;
+            }
+
+            .cart-button {
+                width: 50px;
+                height: 50px;
+                top: 20px;
+                right: 20px;
+            }
+
+            .cart-button i {
+                font-size: 1.5em;
+            }
+
+            .cart-count {
+                width: 24px;
+                height: 24px;
+                font-size: 0.75em;
+            }
+
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <div class="cart-button" id="cartButton">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" id="cartCount">0</span>
+    </div>
+
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Meu Carrinho</h2>
+            <button class="cart-close" id="cartClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty">
+                <i class="fas fa-shopping-cart"></i>
+                <p>Seu carrinho está vazio</p>
+            </div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display: none;">
+            <div class="cart-total">
+                <span class="cart-total-label">Total:</span>
+                <span class="cart-total-value" id="cartTotal">R$ 0,00</span>
+            </div>
+            <button class="cart-checkout">Finalizar Reserva</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Cruzeiros dos Sonhos</h1>
+            <p>Navegue pelos melhores destinos do Brasil e do mundo com conforto e exclusividade</p>
+        </div>
+
+        <div class="packages-grid" id="packagesGrid">
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Caribe" class="package-image">
+                    <span class="package-badge featured-badge">Mais Vendido</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌎 Internacional</span>
+                    <h3 class="package-title">Caribe Paradisíaco</h3>
+                    <p class="package-description">Explore as ilhas mais deslumbrantes do Caribe com paradas em Aruba, Curaçao e Jamaica. Águas cristalinas e praias de areia branca te aguardam.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>8 dias / 7 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio 5 estrelas</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 6.890</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Costa Brasileira" class="package-image">
+                    <span class="package-badge">Promoção</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🇧🇷 Nacional</span>
+                    <h3 class="package-title">Costa Brasileira</h3>
+                    <p class="package-description">Descubra as maravilhas do litoral brasileiro com paradas em Santos, Búzios, Ilhabela e Salvador. Uma experiência tropical inesquecível.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>6 dias / 5 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Premium</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>Pensão Completa</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 3.490</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Mediterrâneo" class="package-image">
+                    <span class="package-badge luxury-badge">Luxo</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌍 Europa</span>
+                    <h3 class="package-title">Mediterrâneo Mágico</h3>
+                    <p class="package-description">Navegue pelas águas azuis do Mediterrâneo visitando Barcelona, Roma, Grécia e Turquia. História, cultura e gastronomia de alto nível.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>12 dias / 11 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Luxo</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive Premium</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 12.990</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Amazônia" class="package-image">
+                    <span class="package-badge">Exclusivo</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🇧🇷 Amazônia</span>
+                    <h3 class="package-title">Amazônia Selvagem</h3>
+                    <p class="package-description">Aventura única pelos rios da Amazônia com paradas em Manaus, Parintins e comunidades ribeirinhas. Contato direto com a natureza.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>7 dias / 6 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Expedição</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>Pensão Completa</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 4.790</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1513519107127-1bed33748e4c?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Fjords" class="package-image">
+                    <span class="package-badge featured-badge">Imperdível</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌍 Escandinávia</span>
+                    <h3 class="package-title">Fjords Noruegueses</h3>
+                    <p class="package-description">Paisagens espetaculares dos fjords da Noruega com paradas em Bergen, Geiranger e Flam. Aurora boreal e natureza intocada.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>10 dias / 9 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Premium</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 14.500</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Nordeste" class="package-image">
+                    <span class="package-badge">Verão</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🇧🇷 Nordeste</span>
+                    <h3 class="package-title">Praias do Nordeste</h3>
+                    <p class="package-description">Roteiro especial pelas praias mais bonitas do Nordeste brasileiro: Fernando de Noronha, Maceió, Porto de Galinhas e Fortaleza.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>5 dias / 4 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio 4 estrelas</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>Meia Pensão</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 2.890</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Alasca" class="package-image">
+                    <span class="package-badge luxury-badge">Premium</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌎 América do Norte</span>
+                    <h3 class="package-title">Alasca Glacial</h3>
+                    <p class="package-description">Aventura épica pelo Alasca com geleiras monumentais, baleias e ursos. Paradas em Juneau, Ketchikan e Skagway.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>9 dias / 8 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Luxo</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 11.890</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Rio de Janeiro" class="package-image">
+                    <span class="package-badge">Fim de Semana</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🇧🇷 Rio de Janeiro</span>
+                    <h3 class="package-title">Baía de Guanabara</h3>
+                    <p class="package-description">Cruzeiro rápido pela deslumbrante Baía de Guanabara com vista para o Cristo Redentor, Pão de Açúcar e praias cariocas.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>3 dias / 2 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Confort</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>Café da Manhã</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 1.590</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Ásia" class="package-image">
+                    <span class="package-badge featured-badge">Novidade</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌏 Ásia</span>
+                    <h3 class="package-title">Sudeste Asiático</h3>
+                    <p class="package-description">Viagem exótica pela Tailândia, Vietnã e Singapura. Templos milenares, praias tropicais e gastronomia asiática autêntica.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>14 dias / 13 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio 5 estrelas</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 16.790</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Patagônia" class="package-image">
+                    <span class="package-badge">Aventura</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌎 América do Sul</span>
+                    <h3 class="package-title">Patagônia Argentina</h3>
+                    <p class="package-description">Explore os glaciares da Patagônia com paradas em Ushuaia, Puerto Madryn e Canal de Beagle. Paisagens de tirar o fôlego.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>8 dias / 7 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Expedição</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>Pensão Completa</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 9.890</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Dubai" class="package-image">
+                    <span class="package-badge luxury-badge">Ultra Luxo</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌍 Oriente Médio</span>
+                    <h3 class="package-title">Emirados Árabes</h3>
+                    <p class="package-description">Luxo e sofisticação por Dubai, Abu Dhabi e Muscat. Arranha-céus, desertos e palácios encantadores.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>7 dias / 6 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Ultra Luxo</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive Premium</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 18.990</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1551244072-5d12893278ab?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Pantanal" class="package-image">
+                    <span class="package-badge">Ecoturismo</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🇧🇷 Centro-Oeste</span>
+                    <h3 class="package-title">Pantanal Brasileiro</h3>
+                    <p class="package-description">Navegue pelos rios do Pantanal observando onças, jacarés e centenas de aves. Experiência de ecoturismo única.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>5 dias / 4 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Barco Regional</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>Pensão Completa</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 3.290</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Havaí" class="package-image">
+                    <span class="package-badge featured-badge">Popular</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌎 Pacífico</span>
+                    <h3 class="package-title">Ilhas do Havaí</h3>
+                    <p class="package-description">Tour pelas ilhas havaianas: Oahu, Maui, Kauai e Big Island. Praias paradisíacas, vulcões ativos e cultura polinésia.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>10 dias / 9 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio 5 estrelas</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 13.490</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1549144511-f099e773c147?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Croácia" class="package-image">
+                    <span class="package-badge">Verão Europeu</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌍 Croácia</span>
+                    <h3 class="package-title">Costa Dálmata</h3>
+                    <p class="package-description">Descubra as cidades históricas da Croácia: Dubrovnik, Split e Hvar. Águas cristalinas do Mar Adriático.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>7 dias / 6 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Boutique</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>Meia Pensão</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 8.590</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1580655653885-65763b2597d0?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Japão" class="package-image">
+                    <span class="package-badge">Sakura</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌏 Japão</span>
+                    <h3 class="package-title">Japão Imperial</h3>
+                    <p class="package-description">Navegue pela costa japonesa visitando Tóquio, Osaka, Hiroshima e Nagasaki. Tradição milenar e tecnologia futurista.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>11 dias / 10 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Premium</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 15.890</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Fernando de Noronha" class="package-image">
+                    <span class="package-badge featured-badge">Exclusivo</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🇧🇷 Pernambuco</span>
+                    <h3 class="package-title">Fernando de Noronha</h3>
+                    <p class="package-description">Paraíso ecológico com as praias mais bonitas do Brasil. Mergulho com golfinhos e tartarugas marinhas.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>4 dias / 3 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Premium</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>Pensão Completa</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 5.490</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1512100356356-de1b84283e18?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Egito" class="package-image">
+                    <span class="package-badge luxury-badge">Histórico</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌍 África</span>
+                    <h3 class="package-title">Nilo Egípcio</h3>
+                    <p class="package-description">Viagem pelos tesouros do Egito antigo: pirâmides, templos de Luxor, Vale dos Reis e Assuã. História viva.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>9 dias / 8 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Luxo</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 11.290</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Antártida" class="package-image">
+                    <span class="package-badge luxury-badge">Expedição</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌎 Antártida</span>
+                    <h3 class="package-title">Continente Gelado</h3>
+                    <p class="package-description">Aventura extrema pela Antártida. Pinguins, focas, icebergs monumentais e paisagens de outro mundo.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>15 dias / 14 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Quebra-gelo</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 32.990</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Ilhabela" class="package-image">
+                    <span class="package-badge">Fim de Semana</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🇧🇷 São Paulo</span>
+                    <h3 class="package-title">Ilhabela Express</h3>
+                    <p class="package-description">Cruzeiro rápido para Ilhabela e Ubatuba. Ideal para quem quer relaxar pertinho de São Paulo.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>2 dias / 1 noite</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Confort</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>Meia Pensão</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 990</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Báltico" class="package-image">
+                    <span class="package-badge">Cultural</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌍 Mar Báltico</span>
+                    <h3 class="package-title">Capitais Bálticas</h3>
+                    <p class="package-description">Navegue pelo Báltico visitando São Petersburgo, Estocolmo, Copenhague e Helsinque. História e cultura nórdica.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>10 dias / 9 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Premium</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>Pensão Completa</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 12.590</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Cancún" class="package-image">
+                    <span class="package-badge featured-badge">Super Oferta</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌎 México</span>
+                    <h3 class="package-title">Riviera Mexicana</h3>
+                    <p class="package-description">Explore Cancún, Cozumel e Playa del Carmen. Praias caribenhas, cenotes e ruínas maias espetaculares.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>6 dias / 5 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio 4 estrelas</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 5.990</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Galápagos" class="package-image">
+                    <span class="package-badge">Natureza</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌎 Equador</span>
+                    <h3 class="package-title">Ilhas Galápagos</h3>
+                    <p class="package-description">Expedição científica pelas ilhas que inspiraram Darwin. Fauna única no mundo, tartarugas gigantes e iguanas marinhas.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>8 dias / 7 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Expedição</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>Pensão Completa</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 14.790</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Angra" class="package-image">
+                    <span class="package-badge">Relax</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🇧🇷 Rio de Janeiro</span>
+                    <h3 class="package-title">Angra dos Reis</h3>
+                    <p class="package-description">Passeio pelas 365 ilhas de Angra dos Reis. Águas cristalinas, praias desertas e muito sossego.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>3 dias / 2 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Iate Privado</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 2.790</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Polinésia" class="package-image">
+                    <span class="package-badge luxury-badge">Romance</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌏 Pacífico Sul</span>
+                    <h3 class="package-title">Polinésia Francesa</h3>
+                    <p class="package-description">Ilhas paradisíacas de Tahiti, Bora Bora e Moorea. Bangalôs sobre a água, corais coloridos e romantismo puro.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>12 dias / 11 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Luxo</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive Premium</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 24.990</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Islândia" class="package-image">
+                    <span class="package-badge featured-badge">Incrível</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌍 Islândia</span>
+                    <h3 class="package-title">Islândia Mística</h3>
+                    <p class="package-description">Terra do fogo e gelo. Vulcões, gêiseres, cachoeiras monumentais e aurora boreal. Uma viagem mágica.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>9 dias / 8 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Premium</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>Pensão Completa</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 13.890</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Recife" class="package-image">
+                    <span class="package-badge">Carnaval</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🇧🇷 Pernambuco</span>
+                    <h3 class="package-title">Recife & Olinda</h3>
+                    <p class="package-description">Cultura pernambucana com frevo, maracatu e praias urbanas. Recife Antigo e centro histórico de Olinda.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>4 dias / 3 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Regional</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>Café da Manhã</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 1.890</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Austrália" class="package-image">
+                    <span class="package-badge">Grande Barreira</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌏 Austrália</span>
+                    <h3 class="package-title">Grande Barreira de Corais</h3>
+                    <p class="package-description">Mergulhe na maior barreira de corais do mundo. Sydney, Brisbane e Cairns. Vida marinha espetacular.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>13 dias / 12 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio 5 estrelas</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 17.990</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Seychelles" class="package-image">
+                    <span class="package-badge luxury-badge">Exclusivo</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌍 Oceano Índico</span>
+                    <h3 class="package-title">Seychelles Paradisíacas</h3>
+                    <p class="package-description">115 ilhas no Oceano Índico. Praias de areia branca, rochas graníticas e águas azul-turquesa de tirar o fôlego.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>10 dias / 9 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Iate de Luxo</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive Premium</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 21.990</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Chile" class="package-image">
+                    <span class="package-badge">Vinhos</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌎 Chile</span>
+                    <h3 class="package-title">Costa Chilena</h3>
+                    <p class="package-description">Navegue pela costa do Chile com paradas em Valparaíso, Viña del Mar e vinícolas renomadas. Cultura e gastronomia.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>7 dias / 6 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Boutique</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>Pensão Completa</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 7.490</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Maldivas" class="package-image">
+                    <span class="package-badge luxury-badge">Lua de Mel</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌏 Maldivas</span>
+                    <h3 class="package-title">Maldivas Românticas</h3>
+                    <p class="package-description">Ilhas privativas nas Maldivas. Bangalôs de luxo sobre o mar, mergulho com mantas e ceia à luz de velas.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>8 dias / 7 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Iate Ultra Luxo</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive Premium</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 28.990</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Paris" class="package-image">
+                    <span class="package-badge">Romântico</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌍 França</span>
+                    <h3 class="package-title">Rio Sena - Paris</h3>
+                    <p class="package-description">Cruzeiro fluvial pelo Sena em Paris. Torre Eiffel, Louvre, Notre-Dame e gastronomia francesa de alto nível.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>5 dias / 4 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Barco Fluvial Luxo</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 9.990</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Parati" class="package-image">
+                    <span class="package-badge">Histórico</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🇧🇷 Rio de Janeiro</span>
+                    <h3 class="package-title">Parati Colonial</h3>
+                    <p class="package-description">Cidade histórica de Parati com suas ruas de pedra. Ilhas paradisíacas, cachaçarias e cultura caiçara.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>3 dias / 2 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Escuna Tradicional</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>Meia Pensão</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 1.690</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Nova Zelândia" class="package-image">
+                    <span class="package-badge featured-badge">Aventura</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌏 Nova Zelândia</span>
+                    <h3 class="package-title">Fiordes da Nova Zelândia</h3>
+                    <p class="package-description">Paisagens cinematográficas de Milford Sound, Auckland e Wellington. Natureza selvagem e aventuras radicais.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>11 dias / 10 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Premium</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>Pensão Completa</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 16.490</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Canadá" class="package-image">
+                    <span class="package-badge">Outono</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌎 Canadá</span>
+                    <h3 class="package-title">Costa Canadense</h3>
+                    <p class="package-description">Vancouver, Victoria e Alaska. Baleias, ursos, florestas temperadas e montanhas espetaculares.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>9 dias / 8 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Premium</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 13.290</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Jericoacoara" class="package-image">
+                    <span class="package-badge">Kitesurf</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🇧🇷 Ceará</span>
+                    <h3 class="package-title">Jericoacoara</h3>
+                    <p class="package-description">Paraíso do kitesurf com dunas, lagoas azuis e pôr do sol na Pedra Furada. Uma das praias mais bonitas do mundo.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>4 dias / 3 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Catamarã</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>Café da Manhã</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 2.490</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Santorini" class="package-image">
+                    <span class="package-badge luxury-badge">Grécia</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌍 Grécia</span>
+                    <h3 class="package-title">Ilhas Gregas</h3>
+                    <p class="package-description">Santorini, Mykonos, Creta e Atenas. Casinhas brancas, mar azul e história da Grécia antiga.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>10 dias / 9 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio Luxo</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 11.890</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Bonito" class="package-image">
+                    <span class="package-badge">Flutuação</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🇧🇷 Mato Grosso do Sul</span>
+                    <h3 class="package-title">Bonito MS</h3>
+                    <p class="package-description">Rios de águas cristalinas para flutuação. Grutas, cachoeiras e ecoturismo de qualidade mundial.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>5 dias / 4 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Barco Ecológico</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>Pensão Completa</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 3.890</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&q=80" alt="Cruzeiro Transatlântico" class="package-image">
+                    <span class="package-badge featured-badge">Épico</span>
+                </div>
+                <div class="package-content">
+                    <span class="package-destination">🌎 Transatlântico</span>
+                    <h3 class="package-title">Brasil - Europa</h3>
+                    <p class="package-description">Travessia do Atlântico saindo do Brasil até Lisboa. Experiência clássica de cruzeiro em alto-mar.</p>
+                    <div class="package-details">
+                        <div class="detail-item">
+                            <span>⏱️</span>
+                            <span>18 dias / 17 noites</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛳️</span>
+                            <span>Navio 5 estrelas</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🍽️</span>
+                            <span>All Inclusive</span>
+                        </div>
+                    </div>
+                    <div class="package-footer">
+                        <div class="package-price">
+                            <span class="price-label">A partir de</span>
+                            <span class="price-value">R$ 19.990</span>
+                        </div>
+                        <button class="btn-reserve" data-title="Caribe Paradisíaco" data-destination="🌎 Internacional" data-price="6890" data-image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&q=80">Reservar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cruisesCart')) || [];
+
+        function updateCartUI() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartFooter = document.getElementById('cartFooter');
+            const cartTotal = document.getElementById('cartTotal');
+
+            cartCount.textContent = cart.length;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="cart-empty">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Seu carrinho está vazio</p>
+                    </div>
+                `;
+                cartFooter.style.display = 'none';
+            } else {
+                let total = 0;
+                cartItems.innerHTML = cart.map((item, index) => {
+                    total += item.price;
+                    return `
+                        <div class="cart-item">
+                            <img src="${item.image}" alt="${item.title}" class="cart-item-image">
+                            <div class="cart-item-info">
+                                <div class="cart-item-title">${item.title}</div>
+                                <div class="cart-item-destination">${item.destination}</div>
+                                <div class="cart-item-price">R$ ${item.price.toLocaleString('pt-BR')}</div>
+                            </div>
+                            <button class="cart-item-remove" onclick="removeFromCart(${index})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                }).join('');
+                
+                cartTotal.textContent = `R$ ${total.toLocaleString('pt-BR')}`;
+                cartFooter.style.display = 'block';
+            }
+
+            localStorage.setItem('cruisesCart', JSON.stringify(cart));
+        }
+
+        function addToCart(button) {
+            const card = button.closest('.package-card');
+            const title = card.querySelector('.package-title').textContent;
+            const destination = card.querySelector('.package-destination').textContent;
+            const priceText = card.querySelector('.price-value').textContent;
+            const price = parseInt(priceText.replace(/\D/g, ''));
+            const image = card.querySelector('.package-image').src;
+
+            const item = { title, destination, price, image };
+            cart.push(item);
+            updateCartUI();
+
+            button.textContent = 'Adicionado!';
+            button.style.background = '#4CAF50';
+            setTimeout(() => {
+                button.textContent = 'Reservar';
+                button.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            }, 1500);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        document.getElementById('cartButton').addEventListener('click', () => {
+            document.getElementById('cartSidebar').classList.add('active');
+            document.getElementById('cartOverlay').classList.add('active');
+        });
+
+        document.getElementById('cartClose').addEventListener('click', () => {
+            document.getElementById('cartSidebar').classList.remove('active');
+            document.getElementById('cartOverlay').classList.remove('active');
+        });
+
+        document.getElementById('cartOverlay').addEventListener('click', () => {
+            document.getElementById('cartSidebar').classList.remove('active');
+            document.getElementById('cartOverlay').classList.remove('active');
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartUI();
+
+            document.querySelectorAll('.btn-reserve').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    addToCart(button);
+                });
+            });
+        });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const destinoParam = urlParams.get('destino');
+
+        if (destinoParam) {
+            const cards = document.querySelectorAll('.package-card');
+            let foundAny = false;
+
+            cards.forEach(card => {
+                const title = card.querySelector('.package-title').textContent.toLowerCase();
+                const description = card.querySelector('.package-description').textContent.toLowerCase();
+                const destination = card.querySelector('.package-destination').textContent.toLowerCase();
+                const searchTerm = destinoParam.toLowerCase();
+
+                if (title.includes(searchTerm) || description.includes(searchTerm) || destination.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    foundAny = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (!foundAny) {
+                const grid = document.getElementById('packagesGrid');
+                const noResults = document.createElement('div');
+                noResults.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: white; border-radius: 15px; color: #666;';
+                noResults.innerHTML = `
+                    <h3 style="font-size: 1.8em; margin-bottom: 15px; color: #333;">Nenhum resultado encontrado</h3>
+                    <p style="font-size: 1.1em;">Não encontramos cruzeiros para "${destinoParam}". Tente outro destino ou <a href="cruzeiros.html" style="color: #667eea; text-decoration: underline;">veja todos os pacotes</a>.</p>
+                `;
+                grid.appendChild(noResults);
+            }
+
+            const header = document.querySelector('.header p');
+            header.textContent = `Resultados da busca por: "${destinoParam}"`;
+        }
+    </script>
+</body>
+</html>
