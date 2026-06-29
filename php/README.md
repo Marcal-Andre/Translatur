@@ -23,7 +23,7 @@ if($mysqli === false){
 }
 ?>
 ```
-
+  
 ## Database Schema
 
 The MySQL database would typically include these tables:
