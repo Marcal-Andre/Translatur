@@ -1,88 +1,230 @@
-/* Hero Section */
+/* ==========================================================================
+   Hero Section
+   Fluido, com atmosfera viva, cartões flutuantes animados e proporção áurea
+   ========================================================================== */
+
 #hero {
-  height: 100vh;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.pexels.com/photos/2325446/pexels-photo-2325446.jpeg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  position: relative;
+  min-height: 78vh;
+  padding: 130px 0 90px 0;
   display: flex;
+  align-items: center;
   justify-content: center;
+  background-image: 
+    linear-gradient(180deg, rgba(8, 14, 33, 0.78) 0%, rgba(8, 14, 33, 0.5) 45%, rgba(8, 14, 33, 0.88) 100%),
+    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center 30%;
+  color: #ffffff;
+  overflow: visible;
+}
+
+/* Efeito de luz ambiente e partículas sutis */
+#hero::before {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 650px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.25) 0%, rgba(249, 115, 22, 0.15) 50%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-wrapper {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   text-align: center;
-  color: var(--text-light);
+  max-width: 980px;
+  margin: 0 auto;
 }
 
-.hero-content {
-  max-width: 800px;
-  padding: 0 20px;
+/* Selo de Avaliação Flutuante no Topo */
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  padding: 8px 20px;
+  border-radius: 9999px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
 }
 
+.hero-pill:hover {
+  transform: translateY(-2px);
+}
+
+.hero-pill i {
+  color: #facc15;
+}
+
+/* Título com Tipografia Viva e Editorial */
 .hero-content h1 {
-  font-size: 4rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  animation: fadeInDown 1s ease;
+  font-size: 3.4rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.18;
+  margin-bottom: 18px;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+.hero-content h1 .editorial-serif {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 500;
+  color: #fef08a;
+  text-shadow: 0 0 25px rgba(250, 204, 21, 0.4);
+}
+
+.hero-content h1 span.highlight {
+  background: linear-gradient(135deg, #ffffff 0%, #fed7aa 60%, #fdba74 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 12px rgba(253, 186, 116, 0.5));
 }
 
 .hero-content p {
-  font-size: 1.5rem;
-  margin-bottom: 30px;
-  animation: fadeInUp 1s ease;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 760px;
+  margin: 0 auto 30px auto;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-.hero-content .btn-primary {
-  animation: fadeIn 1.5s ease;
+/* Tags de Confiança abaixo do texto */
+.hero-benefits {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
 }
 
-/* Animations */
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-50px);
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.benefit-item i {
+  color: #38bdf8;
+  font-size: 0.95rem;
+}
+
+/* Cartões Flutuantes Animados ao Redor do Hero (Trazem dinamismo e vida) */
+.floating-hero-card {
+  position: absolute;
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(14px);
+  color: #0f172a;
+  padding: 10px 16px;
+  border-radius: 16px;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+  animation: floatSlow 5s ease-in-out infinite;
+}
+
+.floating-hero-card.left {
+  top: 25%;
+  left: 3%;
+  animation-delay: 0s;
+}
+
+.floating-hero-card.right {
+  top: 40%;
+  right: 3%;
+  animation-delay: 2.5s;
+}
+
+.floating-card-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.floating-card-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.floating-card-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.floating-card-price {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #ea580c;
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  50% {
+    transform: translateY(-10px) rotate(1deg);
   }
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+/* Responsivo */
+@media (max-width: 1200px) {
+  .floating-hero-card {
+    display: none;
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Responsive */
 @media (max-width: 768px) {
-  .hero-content h1 {
-    font-size: 2.5rem;
+  #hero {
+    min-height: auto;
+    padding: 110px 0 50px 0;
   }
-  
-  .hero-content p {
-    font-size: 1.2rem;
-  }
-}
 
-@media (max-width: 480px) {
   .hero-content h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
-  
+
   .hero-content p {
-    font-size: 1rem;
+    font-size: 1.02rem;
+    margin-bottom: 20px;
+  }
+
+  .hero-benefits {
+    gap: 8px;
+  }
+
+  .benefit-item {
+    font-size: 0.8rem;
+    padding: 5px 10px;
   }
 }

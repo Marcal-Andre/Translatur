@@ -1,30 +1,31 @@
-// Mobile menu functionality
+/* ==========================================================================
+   Mobile Menu Module
+   Gaveta lateral suave com backdrop blur e bloqueio de scroll
+   ========================================================================== */
+
 export function setupMobileMenu() {
   const hamburger = document.querySelector('.hamburger');
   const navLinks = document.querySelector('.nav-links');
+  const navBackdrop = document.querySelector('.nav-backdrop');
   const navLinksItems = document.querySelectorAll('.nav-links li a');
-  
+
   if (!hamburger || !navLinks) return;
-  
-  // Toggle mobile menu
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('active');
-  });
-  
-  // Close mobile menu when clicking on a link
+
+  const toggleMenu = (open) => {
+    const shouldOpen = open !== undefined ? open : !navLinks.classList.contains('active');
+    hamburger.classList.toggle('active', shouldOpen);
+    navLinks.classList.toggle('active', shouldOpen);
+    if (navBackdrop) navBackdrop.classList.toggle('active', shouldOpen);
+    document.body.style.overflow = shouldOpen ? 'hidden' : '';
+  };
+
+  hamburger.addEventListener('click', () => toggleMenu());
+
+  if (navBackdrop) {
+    navBackdrop.addEventListener('click', () => toggleMenu(false));
+  }
+
   navLinksItems.forEach(item => {
-    item.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      navLinks.classList.remove('active');
-    });
-  });
-  
-  // Close mobile menu when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-      hamburger.classList.remove('active');
-      navLinks.classList.remove('active');
-    }
+    item.addEventListener('click', () => toggleMenu(false));
   });
 }

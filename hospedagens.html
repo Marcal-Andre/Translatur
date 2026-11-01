@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotéis Boutique & Resorts All-Inclusive • Translatur Viagens</title>
+  <meta name="description" content="Reserve os melhores resorts All-Inclusive, hotéis de luxo e pousadas charmosas com tarifas exclusivas de agência, upgrades VIP e parcelamento em 12x." />
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230284c7'><path d='M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z'/></svg>" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Estilos Modulares -->
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/header.css">
+  <link rel="stylesheet" href="styles/search.css">
+  <link rel="stylesheet" href="styles/subpages.css">
+  <link rel="stylesheet" href="styles/footer.css">
+</head>
+<body>
+
+  <!-- Cabeçalho / Navegação -->
+  <header id="header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-paper-plane"></i></div>
+        <div class="logo-text">
+          <h1>Translatur</h1>
+          <span>Viagens & Turismo</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="index.html#destinations-deals">Pacotes</a></li>
+          <li><a href="index.html#services" class="active">Serviços</a></li>
+          <li><a href="index.html#why-us">Vantagens</a></li>
+          <li><a href="index.html#testimonials">Depoimentos</a></li>
+          <li><a href="#footer">Contato</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="hamburger" aria-label="Abrir Menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="nav-backdrop"></div>
+
+  <!-- Hero da Subpágina -->
+  <section class="subpage-hero hero-hotels">
+    <div class="container">
+      <div class="subpage-hero-content">
+        <div class="breadcrumb-nav">
+          <a href="index.html">Início</a> <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i>
+          <a href="index.html#services">Serviços</a> <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i>
+          <span>Hotéis & Resorts</span>
+        </div>
+        <h1>Hotéis Boutique & <span class="highlight">Resorts All-Inclusive</span></h1>
+        <p>
+          Hospedagens selecionadas a dedo com tarifas de agência, café da manhã ou regime all-inclusive completo e benefícios VIP exclusivos.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filtro Dedicado de Hospedagens -->
+  <section style="padding: 0 0 50px 0;">
+    <div class="container">
+      <div class="subpage-filter-card">
+        <div style="display: flex; gap: 14px; margin-bottom: 18px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; flex-wrap: wrap;">
+          <label style="display: flex; align-items: center; gap: 6px; font-weight: 700; color: #0284c7; cursor: pointer; font-size: 0.9rem;">
+            <input type="radio" name="hotel-type" checked> Todos os Tipos
+          </label>
+          <label style="display: flex; align-items: center; gap: 6px; font-weight: 600; color: #64748b; cursor: pointer; font-size: 0.9rem;">
+            <input type="radio" name="hotel-type"> Resorts All-Inclusive
+          </label>
+          <label style="display: flex; align-items: center; gap: 6px; font-weight: 600; color: #64748b; cursor: pointer; font-size: 0.9rem;">
+            <input type="radio" name="hotel-type"> Hotéis Boutique
+          </label>
+          <label style="display: flex; align-items: center; gap: 6px; font-weight: 600; color: #64748b; cursor: pointer; font-size: 0.9rem;">
+            <input type="radio" name="hotel-type"> Pousadas Charme
+          </label>
+        </div>
+
+        <div class="subpage-filter-grid">
+          <div class="search-field">
+            <div class="field-box">
+              <div class="field-icon"><i class="fas fa-hotel"></i></div>
+              <div class="field-info">
+                <label>Destino ou Nome do Hotel</label>
+                <input type="text" placeholder="Ex: Maragogi, Gramado, Cancún..." value="Porto de Galinhas, PE">
+              </div>
+            </div>
+          </div>
+
+          <div class="search-field">
+            <div class="field-box" style="gap: 8px;">
+              <div class="field-icon"><i class="fas fa-calendar-alt"></i></div>
+              <div class="field-info" style="flex: 1;">
+                <label>Check-in</label>
+                <input type="date" value="2025-05-10">
+              </div>
+              <div class="field-info" style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 8px;">
+                <label>Check-out</label>
+                <input type="date" value="2025-05-17">
+              </div>
+            </div>
+          </div>
+
+          <div class="search-field">
+            <div class="field-box">
+              <div class="field-icon"><i class="fas fa-user-friends"></i></div>
+              <div class="field-info">
+                <label>Quartos & Hóspedes</label>
+                <input type="text" value="1 Quarto, 2 Adultos" readonly>
+              </div>
+            </div>
+          </div>
+
+          <button class="search-submit-btn" style="height: 52px; padding: 0 28px;">
+            <i class="fas fa-magnifying-glass"></i>
+            <span>Ver Tarifas</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vitrine de Hotéis e Resorts Curados -->
+  <section style="padding: 20px 0 70px 0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fas fa-star"></i> Curadoria Premium</span>
+        <h2 class="section-title">Hospedagens Recomendadas com Vantagens Exclusivas</h2>
+        <p class="section-subtitle">Negociamos condições especiais diretamente com as gerências dos melhores resorts e hotéis.</p>
+      </div>
+
+      <div class="items-showcase-grid">
+
+        <!-- Card Hotel 1 -->
+        <div class="hotel-card">
+          <div class="hotel-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=700&q=80" alt="Nannai Muro Alto Resort" loading="lazy">
+            <span class="hotel-badge-tag badge-allinc"><i class="fas fa-champagne-glasses"></i> Meia Pensão Premium</span>
+          </div>
+          <div class="subpage-card-body">
+            <div class="subpage-card-header">
+              <h3 class="subpage-card-title">Nannai Muro Alto Resort</h3>
+              <span class="subpage-rating"><i class="fas fa-star"></i> 4.9</span>
+            </div>
+            <div class="subpage-location"><i class="fas fa-location-dot"></i> Porto de Galinhas, Pernambuco</div>
+            <p class="subpage-desc">Bangalôs exclusivos sobre piscinas naturais de águas mornas, gastronomia sofisticada e Spa L'Occitane.</p>
+            <div class="subpage-amenities-list">
+              <span class="amenity-chip"><i class="fas fa-water"></i> Piscinas Naturais</span>
+              <span class="amenity-chip"><i class="fas fa-spa"></i> Spa & Bem-estar</span>
+              <span class="amenity-chip"><i class="fas fa-wifi"></i> Wi-Fi Alta Velocidade</span>
+            </div>
+            <div class="subpage-card-footer">
+              <div class="subpage-price-meta">
+                <span class="label">Diária a partir de</span>
+                <span class="val">R$ 2.450</span>
+                <span class="sub">em até 12x sem juros</span>
+              </div>
+              <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20cotar%20di%C3%A1rias%20no%20Nannai%20Muro%20Alto%20Resort." target="_blank" class="btn-subpage-book">
+                Cotar Vaga <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Hotel 2 -->
+        <div class="hotel-card">
+          <div class="hotel-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=700&q=80" alt="Salinas Maragogi All Inclusive" loading="lazy">
+            <span class="hotel-badge-tag badge-allinc"><i class="fas fa-utensils"></i> All-Inclusive 24h</span>
+          </div>
+          <div class="subpage-card-body">
+            <div class="subpage-card-header">
+              <h3 class="subpage-card-title">Salinas Maragogi All Inclusive</h3>
+              <span class="subpage-rating"><i class="fas fa-star"></i> 4.9</span>
+            </div>
+            <div class="subpage-location"><i class="fas fa-location-dot"></i> Maragogi, Alagoas</div>
+            <p class="subpage-desc">Considerado um dos resorts all-inclusive mais amados do Brasil, com complexo aquático, rio cortando o resort e praia paradisíaca.</p>
+            <div class="subpage-amenities-list">
+              <span class="amenity-chip"><i class="fas fa-martini-glass"></i> Bebidas Premium</span>
+              <span class="amenity-chip"><i class="fas fa-child"></i> Recreação Infantil</span>
+              <span class="amenity-chip"><i class="fas fa-umbrella-beach"></i> Pé na Areia</span>
+            </div>
+            <div class="subpage-card-footer">
+              <div class="subpage-price-meta">
+                <span class="label">Diária a partir de</span>
+                <span class="val">R$ 1.890</span>
+                <span class="sub">em até 12x sem juros</span>
+              </div>
+              <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20cotar%20di%C3%A1rias%20no%20Salinas%20Maragogi." target="_blank" class="btn-subpage-book">
+                Cotar Vaga <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Hotel 3 -->
+        <div class="hotel-card">
+          <div class="hotel-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=700&q=80" alt="Hotel Colline de France" loading="lazy">
+            <span class="hotel-badge-tag"><i class="fas fa-crown"></i> Luxo Imperial</span>
+          </div>
+          <div class="subpage-card-body">
+            <div class="subpage-card-header">
+              <h3 class="subpage-card-title">Hotel Colline de France</h3>
+              <span class="subpage-rating"><i class="fas fa-star"></i> 5.0</span>
+            </div>
+            <div class="subpage-location"><i class="fas fa-location-dot"></i> Gramado, Rio Grande do Sul</div>
+            <p class="subpage-desc">Eleito o melhor hotel do mundo pela Traveler's Choice, ambientação na época do império francês e atendimento impecável.</p>
+            <div class="subpage-amenities-list">
+              <span class="amenity-chip"><i class="fas fa-mug-hot"></i> Café Imperial Incluso</span>
+              <span class="amenity-chip"><i class="fas fa-temperature-arrow-up"></i> Piscina Aquecida</span>
+              <span class="amenity-chip"><i class="fas fa-fire"></i> Lareira nas Suítes</span>
+            </div>
+            <div class="subpage-card-footer">
+              <div class="subpage-price-meta">
+                <span class="label">Diária a partir de</span>
+                <span class="val">R$ 1.150</span>
+                <span class="sub">em até 12x sem juros</span>
+              </div>
+              <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20cotar%20di%C3%A1rias%20no%20Colline%20de%20France%20em%20Gramado." target="_blank" class="btn-subpage-book">
+                Cotar Vaga <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Hotel 4 -->
+        <div class="hotel-card">
+          <div class="hotel-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=700&q=80" alt="Grand Palladium Imbassaí" loading="lazy">
+            <span class="hotel-badge-tag badge-allinc"><i class="fas fa-utensils"></i> All-Inclusive 5★</span>
+          </div>
+          <div class="subpage-card-body">
+            <div class="subpage-card-header">
+              <h3 class="subpage-card-title">Grand Palladium Imbassaí</h3>
+              <span class="subpage-rating"><i class="fas fa-star"></i> 4.8</span>
+            </div>
+            <div class="subpage-location"><i class="fas fa-location-dot"></i> Costa dos Coqueiros, Bahia</div>
+            <p class="subpage-desc">Reserva natural de Imbassaí com encontro do rio com o mar, 6 restaurantes internacionais e ampla estrutura esportiva.</p>
+            <div class="subpage-amenities-list">
+              <span class="amenity-chip"><i class="fas fa-futbol"></i> Quadras de Tênis</span>
+              <span class="amenity-chip"><i class="fas fa-utensils"></i> 6 Restaurantes</span>
+              <span class="amenity-chip"><i class="fas fa-bell-concierge"></i> Serviço de Mordomo</span>
+            </div>
+            <div class="subpage-card-footer">
+              <div class="subpage-price-meta">
+                <span class="label">Diária a partir de</span>
+                <span class="val">R$ 1.620</span>
+                <span class="sub">em até 12x sem juros</span>
+              </div>
+              <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20cotar%20no%20Grand%20Palladium%20Imbassa%C3%AD." target="_blank" class="btn-subpage-book">
+                Cotar Vaga <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Hotel 5 -->
+        <div class="hotel-card">
+          <div class="hotel-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=700&q=80" alt="Carmelo Resort & Spa" loading="lazy">
+            <span class="hotel-badge-tag"><i class="fas fa-wine-glass"></i> Wine & Nature</span>
+          </div>
+          <div class="subpage-card-body">
+            <div class="subpage-card-header">
+              <h3 class="subpage-card-title">Carmelo Resort & Spa</h3>
+              <span class="subpage-rating"><i class="fas fa-star"></i> 4.9</span>
+            </div>
+            <div class="subpage-location"><i class="fas fa-location-dot"></i> Carmelo / Colônia, Uruguai</div>
+            <p class="subpage-desc">Refúgio em meio a florestas de eucaliptos e vinhedos às margens do Rio da Prata, perfeito para casais e relaxamento.</p>
+            <div class="subpage-amenities-list">
+              <span class="amenity-chip"><i class="fas fa-wine-bottle"></i> Degustação Vinícola</span>
+              <span class="amenity-chip"><i class="fas fa-horse"></i> Passeios a Cavalo</span>
+              <span class="amenity-chip"><i class="fas fa-spa"></i> Spa Tailandês</span>
+            </div>
+            <div class="subpage-card-footer">
+              <div class="subpage-price-meta">
+                <span class="label">Diária a partir de</span>
+                <span class="val">R$ 1.380</span>
+                <span class="sub">em até 12x sem juros</span>
+              </div>
+              <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20cotar%20no%20Carmelo%20Resort%20Uruguai." target="_blank" class="btn-subpage-book">
+                Cotar Vaga <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Hotel 6 -->
+        <div class="hotel-card">
+          <div class="hotel-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=700&q=80" alt="Hard Rock Hotel Riviera Maya" loading="lazy">
+            <span class="hotel-badge-tag badge-allinc"><i class="fas fa-music"></i> All-Inclusive Internacional</span>
+          </div>
+          <div class="subpage-card-body">
+            <div class="subpage-card-header">
+              <h3 class="subpage-card-title">Hard Rock Riviera Maya</h3>
+              <span class="subpage-rating"><i class="fas fa-star"></i> 4.8</span>
+            </div>
+            <div class="subpage-location"><i class="fas fa-location-dot"></i> Riviera Maya / Cancún, México</div>
+            <p class="subpage-desc">Inlet privativo de águas cristalinas para snorkeling, parque aquático Rockaway Bay e noites temáticas de shows ao vivo.</p>
+            <div class="subpage-amenities-list">
+              <span class="amenity-chip"><i class="fas fa-water"></i> Parque Aquático</span>
+              <span class="amenity-chip"><i class="fas fa-fish"></i> Snorkel na Baía</span>
+              <span class="amenity-chip"><i class="fas fa-guitar"></i> Instrumentos no Quarto</span>
+            </div>
+            <div class="subpage-card-footer">
+              <div class="subpage-price-meta">
+                <span class="label">Diária a partir de</span>
+                <span class="val">R$ 2.290</span>
+                <span class="sub">em até 12x sem juros</span>
+              </div>
+              <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20cotar%20no%20Hard%20Rock%20Riviera%20Maya." target="_blank" class="btn-subpage-book">
+                Cotar Vaga <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Vantagens VIP Translatur -->
+  <section style="background-color: #f8fafc; padding: 70px 0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fas fa-gem"></i> Benefícios da Reserva</span>
+        <h2 class="section-title">Por Que Reservar seu Hotel com a Translatur?</h2>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;">
+        <div style="background: #ffffff; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0;">
+          <div style="width: 48px; height: 48px; border-radius: 12px; background: #e0f2fe; color: #0284c7; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 14px;">
+            <i class="fas fa-clock-rotate-left"></i>
+          </div>
+          <h4 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Early Check-in Cortesia</h4>
+          <p style="font-size: 0.88rem; color: #64748b; line-height: 1.5;">Garantimos prioridade no desembarque para entrada antecipada sempre que houver disponibilidade.</p>
+        </div>
+
+        <div style="background: #ffffff; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0;">
+          <div style="width: 48px; height: 48px; border-radius: 12px; background: #fef3c7; color: #d97706; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 14px;">
+            <i class="fas fa-arrow-up-right-dots"></i>
+          </div>
+          <h4 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Upgrade de Categoria</h4>
+          <p style="font-size: 0.88rem; color: #64748b; line-height: 1.5;">Nossos clientes possuem preferência de melhoria de quarto (vista mar, piso superior) na rede conveniada.</p>
+        </div>
+
+        <div style="background: #ffffff; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0;">
+          <div style="width: 48px; height: 48px; border-radius: 12px; background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 14px;">
+            <i class="fas fa-hand-holding-dollar"></i>
+          </div>
+          <h4 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Crédito de Consumo / Spa</h4>
+          <p style="font-size: 0.88rem; color: #64748b; line-height: 1.5;">Vouchers exclusivos para massagens, jantares à la carte ou garrafas de espumante nas boas-vindas.</p>
+        </div>
+
+        <div style="background: #ffffff; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0;">
+          <div style="width: 48px; height: 48px; border-radius: 12px; background: #ede9fe; color: #7c3aed; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 14px;">
+            <i class="fas fa-headset"></i>
+          </div>
+          <h4 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Assessoria em Caso de Falhas</h4>
+          <p style="font-size: 0.88rem; color: #64748b; line-height: 1.5;">Se o quarto não corresponder ao combinado, nosso suporte intervém na hora com o gerente do hotel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dúvidas Frequentes -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fas fa-circle-question"></i> Informações Úteis</span>
+        <h2 class="section-title">Dúvidas sobre Hotéis & Resorts</h2>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h4><i class="fas fa-check-circle" style="color: #0284c7;"></i> Qual a diferença entre Meia Pensão e All-Inclusive?</h4>
+          <p>Meia pensão geralmente inclui o café da manhã e o jantar (bebidas à parte). Já o All-Inclusive inclui todas as refeições (café, almoço, lanches, jantar) e bebidas alcoólicas e não-alcoólicas à vontade durante todo o dia.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4><i class="fas fa-check-circle" style="color: #0284c7;"></i> Como funciona o pagamento parcelado?</h4>
+          <p>Parcelamos reservas em até 12x sem juros nos cartões de crédito aceitos no Brasil. Para pagamentos à vista via Pix ou transferência bancária, oferecemos descontos exclusivos.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4><i class="fas fa-check-circle" style="color: #0284c7;"></i> Crianças pagam hospedagem?</h4>
+          <p>A maioria dos resorts da nossa lista conta com cortesia para 1 ou 2 crianças de até 12 anos acomodadas no mesmo quarto dos pais. Consulte nossa equipe para a política exata de cada hotel.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4><i class="fas fa-check-circle" style="color: #0284c7;"></i> Posso solicitar berço ou cama extra?</h4>
+          <p>Sim! Ao fechar com a Translatur, nós já formalizamos todos os seus pedidos especiais (berços, andar alto, vista preferencial ou restrições alimentares) antes do seu check-in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rodapé Compacto -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand">
+          <div class="logo">
+            <div class="logo-icon"><i class="fas fa-paper-plane"></i></div>
+            <div class="logo-text">
+              <h1 style="color: #fff; font-size: 1.35rem;">Translatur</h1>
+              <span>Viagens & Turismo</span>
+            </div>
+          </div>
+          <p>Agência especializada em resorts, hotéis e roteiros com atendimento humano 24h e suporte completo.</p>
+          <div class="footer-social-links">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-links-col">
+          <h4>Serviços</h4>
+          <ul>
+            <li><a href="passagens.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Passagens Aéreas</a></li>
+            <li><a href="hospedagens.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Hotéis & Resorts</a></li>
+            <li><a href="passeios.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Passeios & Tours</a></li>
+            <li><a href="transfers.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Translados & Transfers</a></li>
+            <li><a href="cruzeiros.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Cruzeiros Marítimos</a></li>
+            <li><a href="seguro-viagem.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Seguro Viagem</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4>Central de Apoio</h4>
+          <ul class="footer-contact-info">
+            <li><i class="fas fa-location-dot"></i> <span>Av. Paulista, 1000 - São Paulo, SP</span></li>
+            <li><i class="fas fa-phone"></i> <span>(11) 9999-9999 • Atendimento Central</span></li>
+            <li><i class="fas fa-clock"></i> <span>Seg à Sex: 09h às 19h | Sáb: 09h às 14h</span></li>
+          </ul>
+        </div>
+
+        <div class="footer-newsletter">
+          <h4>Alertas de Ofertas</h4>
+          <p>Receba promoções exclusivas de resorts e hotéis:</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Digite seu melhor e-mail" required>
+            <button type="submit">Cadastrar</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-badges-bar">
+        <div class="agency-seals">
+          <span class="seal-pill"><i class="fas fa-shield-halved"></i> CADASTUR Ministério do Turismo</span>
+          <span class="seal-pill"><i class="fas fa-check-circle"></i> Agência Associada ABAV</span>
+          <span class="seal-pill"><i class="fas fa-lock"></i> Compra 100% Segura SSL</span>
+        </div>
+        <div class="payment-methods">
+          <span class="payment-label">Pagamento facilitado:</span>
+          <i class="fab fa-cc-visa" title="Visa"></i>
+          <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+          <i class="fas fa-qrcode" title="Pix com desconto"></i>
+          <i class="fas fa-barcode" title="Boleto Parcelado"></i>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <p>&copy; 2025 Translatur Viagens e Turismo Ltda. CNPJ: 00.000.000/0001-00. Todos os direitos reservados.</p>
+        <div>
+          <a href="index.html">Página Principal</a> &bull; 
+          <a href="#">Política de Privacidade</a> &bull; 
+          <a href="#">Termos e Condições</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script Principal para Navegação e Mobile Menu -->
+  <script type="module" src="scripts/main.js"></script>
+</body>
+</html>

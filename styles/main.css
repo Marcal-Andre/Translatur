@@ -1,22 +1,62 @@
-/* Base Styles */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+/* ==========================================================================
+   Translatur - Design System & Base Styles
+   Design moderno, autêntico e focado em conversão para viagens
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,500&display=swap');
 
 :root {
-  --primary-color: #000000;
-  --secondary-color: #ffffff;
-  --accent-color: #ff4d4d;
+  /* Paleta de Cores de Mercado (Hospitalidade & Turismo) */
+  --color-primary: #0a1128;
+  --color-primary-light: #1c274c;
+  --color-brand: #0284c7;
+  --color-brand-hover: #0369a1;
+  --color-brand-subtle: #e0f2fe;
+  
+  --color-accent: #f97316;
+  --color-accent-hover: #ea580c;
+  --color-accent-subtle: #ffedd5;
+  
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-whatsapp: #25d366;
+  --color-whatsapp-hover: #20ba59;
+  
+  /* Textos & Neutros */
+  --text-heading: #0f172a;
+  --text-body: #334155;
+  --text-muted: #64748b;
   --text-light: #ffffff;
-  --text-dark: #000000;
-  --text-gray: #7d7d7d;
-  --bg-light: #ffffff;
-  --bg-dark: #000000;
-  --bg-gray: #f5f5f5;
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  --border-radius: 8px;
-  --transition: all 0.3s ease;
+  
+  /* Superfícies & Fundos */
+  --bg-canvas: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-subtle: #f1f5f9;
+  --bg-dark: #0a1128;
+  
+  /* Bordas */
+  --border-subtle: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --border-focus: #38bdf8;
+  
+  /* Sombras */
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 6px 20px -3px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 20px 30px -6px rgba(15, 23, 42, 0.1), 0 8px 12px -4px rgba(15, 23, 42, 0.05);
+  --shadow-xl: 0 25px 50px -12px rgba(15, 23, 42, 0.2);
+  
+  /* Bordas arredondadas */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  /* Transições suaves */
+  --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-* {
+/* Reset básico */
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -24,25 +64,33 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
-  color: var(--text-dark);
-  background-color: var(--bg-light);
+  color: var(--text-body);
+  background-color: var(--bg-canvas);
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
 }
 
 a {
   text-decoration: none;
   color: inherit;
+  transition: var(--transition);
 }
 
 ul {
@@ -52,67 +100,308 @@ ul {
 img {
   max-width: 100%;
   height: auto;
+  display: block;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+/* ==========================================================================
+   Tipografia e Títulos de Seção (Sem traço genérico de template)
+   ========================================================================== */
+.section-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 3rem auto;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background-color: var(--color-brand-subtle);
+  color: var(--color-brand);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: var(--radius-full);
+  margin-bottom: 12px;
 }
 
 .section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 2rem;
-  position: relative;
-  padding-bottom: 1rem;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 12px;
 }
 
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
-  background-color: var(--accent-color);
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.6;
 }
 
 section {
-  padding: 80px 0;
+  padding: 90px 0;
 }
 
+/* ==========================================================================
+   Botões Profissionais
+   ========================================================================== */
 .btn-primary {
-  display: inline-block;
-  background-color: var(--accent-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--color-accent) 0%, #ea580c 100%);
   color: var(--text-light);
-  padding: 12px 30px;
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  transition: var(--transition);
-  cursor: pointer;
+  padding: 14px 28px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.98rem;
   border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.35);
+  transition: var(--transition);
 }
 
 .btn-primary:hover {
-  background-color: #e63939;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(255, 77, 77, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(249, 115, 22, 0.45);
+  background: linear-gradient(135deg, #fb923c 0%, #ea580c 100%);
 }
 
-/* Responsive */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--bg-surface);
+  color: var(--text-heading);
+  border: 1px solid var(--border-subtle);
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-subtle);
+  border-color: var(--border-strong);
+  color: var(--color-brand);
+}
+
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--color-whatsapp);
+  color: #ffffff;
+  padding: 12px 22px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.92rem;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+.btn-whatsapp:hover {
+  background-color: var(--color-whatsapp-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
+}
+
+/* ==========================================================================
+   Badges e Tags de Destaque
+   ========================================================================== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.badge-featured {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.badge-promo {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.badge-exclusive {
+  background-color: #ede9fe;
+  color: #6d28d9;
+}
+
+/* ==========================================================================
+   Botão Flutuante de Atendimento WhatsApp
+   ========================================================================== */
+.floating-whatsapp {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--color-whatsapp);
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  animation: pulseFloat 3s infinite;
+}
+
+.floating-whatsapp i {
+  font-size: 1.4rem;
+}
+
+.floating-whatsapp:hover {
+  background-color: var(--color-whatsapp-hover);
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
+}
+
+@keyframes pulseFloat {
+  0%, 100% {
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
+  }
+  50% {
+    box-shadow: 0 12px 32px rgba(37, 211, 102, 0.75);
+  }
+}
+
+/* ==========================================================================
+   Modal Genérico de Pacotes e Orçamento
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 17, 40, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-card {
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  max-width: 650px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+  position: relative;
+  transform: translateY(20px) scale(0.96);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.active .modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.06);
+  color: var(--text-heading);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: var(--transition);
+  z-index: 10;
+}
+
+.modal-close:hover {
+  background-color: rgba(0, 0, 0, 0.12);
+  transform: rotate(90deg);
+}
+
+/* Toast de notificação */
+.toast-notice {
+  position: fixed;
+  bottom: 90px;
+  right: 24px;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1050;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.toast-notice.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Responsividade Global
+   ========================================================================== */
 @media (max-width: 768px) {
   .section-title {
-    font-size: 2rem;
+    font-size: 1.9rem;
   }
   
   section {
     padding: 60px 0;
   }
-}
-
-@media (max-width: 480px) {
-  .section-title {
-    font-size: 1.75rem;
+  
+  .floating-whatsapp span {
+    display: none;
   }
   
-  section {
-    padding: 40px 0;
+  .floating-whatsapp {
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
   }
 }

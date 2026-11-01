@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Passagens Aéreas com Melhores Tarifas • Translatur Viagens</title>
+  <meta name="description" content="Encontre passagens aéreas nacionais e internacionais com tarifas de agência, parcelamento em até 12x sem juros e assessoria completa em conexões." />
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230284c7'><path d='M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z'/></svg>" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Estilos Modulares -->
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/header.css">
+  <link rel="stylesheet" href="styles/search.css">
+  <link rel="stylesheet" href="styles/subpages.css">
+  <link rel="stylesheet" href="styles/footer.css">
+</head>
+<body>
+
+  <!-- Cabeçalho / Navegação -->
+  <header id="header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-paper-plane"></i></div>
+        <div class="logo-text">
+          <h1>Translatur</h1>
+          <span>Viagens & Turismo</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="index.html#destinations-deals">Pacotes</a></li>
+          <li><a href="index.html#services" class="active">Serviços</a></li>
+          <li><a href="index.html#why-us">Vantagens</a></li>
+          <li><a href="index.html#testimonials">Depoimentos</a></li>
+          <li><a href="#footer">Contato</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="hamburger" aria-label="Abrir Menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="nav-backdrop"></div>
+
+  <!-- Hero da Subpágina -->
+  <section class="subpage-hero">
+    <div class="container">
+      <div class="subpage-hero-content">
+        <div class="breadcrumb-nav">
+          <a href="index.html">Início</a> <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i>
+          <a href="index.html#services">Serviços</a> <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i>
+          <span>Passagens Aéreas</span>
+        </div>
+        <h1>Passagens Aéreas Nacionais & <span class="highlight">Internacionais</span></h1>
+        <p>
+          Tarifas exclusivas de agência com as melhores companhias aéreas do mundo. Conexões otimizadas, marcação de assentos e assessoria caso ocorra qualquer alteração de voo.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Simulador / Formulário de Passagens -->
+  <section style="padding: 0 0 60px 0;">
+    <div class="container">
+      <div class="subpage-filter-card">
+        <div style="display: flex; gap: 14px; margin-bottom: 18px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">
+          <label style="display: flex; align-items: center; gap: 6px; font-weight: 700; color: #0284c7; cursor: pointer;">
+            <input type="radio" name="flight-trip" checked> Ida e Volta
+          </label>
+          <label style="display: flex; align-items: center; gap: 6px; font-weight: 600; color: #64748b; cursor: pointer;">
+            <input type="radio" name="flight-trip"> Somente Ida
+          </label>
+          <label style="display: flex; align-items: center; gap: 6px; font-weight: 600; color: #64748b; cursor: pointer;">
+            <input type="radio" name="flight-trip"> Vários Destinos
+          </label>
+        </div>
+
+        <div class="subpage-filter-grid">
+          <div class="field-box">
+            <div class="field-icon"><i class="fas fa-plane-departure"></i></div>
+            <div class="field-info">
+              <label>Origem</label>
+              <input type="text" id="flight-origin" value="São Paulo (GRU/CGH)" placeholder="De onde você sai?">
+            </div>
+          </div>
+
+          <div class="field-box">
+            <div class="field-icon"><i class="fas fa-plane-arrival"></i></div>
+            <div class="field-info">
+              <label>Destino</label>
+              <input type="text" id="flight-destination" placeholder="Para onde você vai?">
+            </div>
+          </div>
+
+          <div class="field-box">
+            <div class="field-icon"><i class="fas fa-calendar-alt"></i></div>
+            <div class="field-info">
+              <label>Datas (Ida / Volta)</label>
+              <input type="date" id="flight-date">
+            </div>
+          </div>
+
+          <div class="field-box">
+            <div class="field-icon"><i class="fas fa-users"></i></div>
+            <div class="field-info">
+              <label>Passageiros & Classe</label>
+              <select style="border: none; background: transparent; font-weight: 600; outline: none; font-size: 0.95rem;">
+                <option>1 Adulto, Econômica</option>
+                <option>2 Adultos, Econômica</option>
+                <option>Família (2 Ad + 1 Criança)</option>
+                <option>Classe Executiva</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="button" class="search-submit-btn" style="text-decoration: none; border: none; cursor: pointer;">
+            <i class="fas fa-magnifying-glass"></i> Pesquisar Voos
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trechos em Destaque -->
+  <section style="padding: 20px 0 90px 0; background: #fafaf9;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fas fa-ticket"></i> Tarifas Negociadas</span>
+        <h2 class="section-title">Trechos Mais Procurados da Semana</h2>
+        <p class="section-subtitle">
+          Passagens aéreas com taxas de embarque inclusas e condições em até 12x sem juros.
+        </p>
+      </div>
+
+      <div class="items-showcase-grid">
+        
+        <!-- Voo 1 -->
+        <div class="flight-card">
+          <div class="airline-badge">
+            <div class="airline-logo-info">
+              <i class="fas fa-plane"></i> LATAM / Gol
+            </div>
+            <span class="badge badge-featured">Voo Direto</span>
+          </div>
+          <div class="flight-route-row">
+            <div class="route-stop">
+              <span class="time">08:15</span>
+              <span class="city">São Paulo (GRU)</span>
+            </div>
+            <div class="flight-path-indicator">
+              <span class="flight-duration">3h 10min</span>
+              <div class="flight-path-line"></div>
+              <span style="font-size: 0.72rem; color: #10b981; font-weight: 700;">Sem escalas</span>
+            </div>
+            <div class="route-stop" style="text-align: right;">
+              <span class="time">11:25</span>
+              <span class="city">Recife (REC)</span>
+            </div>
+          </div>
+          <div style="font-size: 0.8rem; color: #64748b; margin-bottom: 16px;">
+            <i class="fas fa-suitcase"></i> Bagagem de mão (10kg) inclusa • Marcação de assento cortesia
+          </div>
+          <div class="package-footer">
+            <div class="package-pricing">
+              <span class="price-label">Ida e Volta a partir de</span>
+              <span class="price-value">R$ 890,00</span>
+              <span class="price-installments">12x de R$ 74,16 sem juros</span>
+            </div>
+            <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20cotar%20o%20voo%20SP%20-%20Recife." target="_blank" class="btn-subpage-book" style="padding: 10px 16px;">
+              <i class="fas fa-ticket"></i> Reservar
+            </a>
+          </div>
+        </div>
+
+        <!-- Voo 2 -->
+        <div class="flight-card">
+          <div class="airline-badge">
+            <div class="airline-logo-info">
+              <i class="fas fa-plane"></i> American / Copa
+            </div>
+            <span class="badge badge-promo">Melhor Preço</span>
+          </div>
+          <div class="flight-route-row">
+            <div class="route-stop">
+              <span class="time">22:40</span>
+              <span class="city">São Paulo (GRU)</span>
+            </div>
+            <div class="flight-path-indicator">
+              <span class="flight-duration">8h 45min</span>
+              <div class="flight-path-line"></div>
+              <span style="font-size: 0.72rem; color: #64748b; font-weight: 600;">1 conexão curta</span>
+            </div>
+            <div class="route-stop" style="text-align: right;">
+              <span class="time">06:25</span>
+              <span class="city">Miami (MIA)</span>
+            </div>
+          </div>
+          <div style="font-size: 0.8rem; color: #64748b; margin-bottom: 16px;">
+            <i class="fas fa-suitcase-rolling"></i> Bagagem despachada 23kg inclusa • Refeições a bordo
+          </div>
+          <div class="package-footer">
+            <div class="package-pricing">
+              <span class="price-label">Ida e Volta a partir de</span>
+              <span class="price-value">R$ 3.290,00</span>
+              <span class="price-installments">12x de R$ 274,16 sem juros</span>
+            </div>
+            <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20cotar%20o%20voo%20SP%20-%20Miami." target="_blank" class="btn-subpage-book" style="padding: 10px 16px;">
+              <i class="fas fa-ticket"></i> Reservar
+            </a>
+          </div>
+        </div>
+
+        <!-- Voo 3 -->
+        <div class="flight-card">
+          <div class="airline-badge">
+            <div class="airline-logo-info">
+              <i class="fas fa-plane"></i> TAP / Air France
+            </div>
+            <span class="badge badge-exclusive">Voo Noturno</span>
+          </div>
+          <div class="flight-route-row">
+            <div class="route-stop">
+              <span class="time">19:10</span>
+              <span class="city">São Paulo (GRU)</span>
+            </div>
+            <div class="flight-path-indicator">
+              <span class="flight-duration">9h 50min</span>
+              <div class="flight-path-line"></div>
+              <span style="font-size: 0.72rem; color: #10b981; font-weight: 700;">Voo direto</span>
+            </div>
+            <div class="route-stop" style="text-align: right;">
+              <span class="time">09:00</span>
+              <span class="city">Lisboa (LIS)</span>
+            </div>
+          </div>
+          <div style="font-size: 0.8rem; color: #64748b; margin-bottom: 16px;">
+            <i class="fas fa-wine-glass"></i> Serviço de bordo completo • Seguro viagem integrado disponível
+          </div>
+          <div class="package-footer">
+            <div class="package-pricing">
+              <span class="price-label">Ida e Volta a partir de</span>
+              <span class="price-value">R$ 4.450,00</span>
+              <span class="price-installments">12x de R$ 370,83 sem juros</span>
+            </div>
+            <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20cotar%20o%20voo%20SP%20-%20Lisboa." target="_blank" class="btn-subpage-book" style="padding: 10px 16px;">
+              <i class="fas fa-ticket"></i> Reservar
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Dúvidas Frequentes -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fas fa-circle-question"></i> Informações Úteis</span>
+        <h2 class="section-title">Dúvidas sobre Passagens Aéreas</h2>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h4><i class="fas fa-check-circle" style="color: #0284c7;"></i> Qual a vantagem de emitir com a Translatur?</h4>
+          <p>Você conta com um consultor humano que acompanha seu voo em tempo real. Se houver atrasos ou cancelamentos pela companhia aérea, nós cuidamos da reacomodação e de todos os trâmites sem você precisar enfrentar filas telefônicas.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4><i class="fas fa-check-circle" style="color: #0284c7;"></i> Posso parcelar em até 12x?</h4>
+          <p>Sim! Parcelamos suas passagens nacionais e internacionais em até 12 vezes sem juros nos principais cartões de crédito, com opção de pagamento misto (Pix + Cartão).</p>
+        </div>
+
+        <div class="faq-item">
+          <h4><i class="fas fa-check-circle" style="color: #0284c7;"></i> A marcação de assentos está inclusa?</h4>
+          <p>Sempre que a regra da classe tarifária permitir, nossa equipe faz a pré-reserva dos seus assentos favoritos (janela, corredor ou juntos para famílias) sem cobrar taxa de serviço adicional.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4><i class="fas fa-check-circle" style="color: #0284c7;"></i> É possível usar pontos ou milhas?</h4>
+          <p>Trabalhamos com combinações mistas e orientamos sobre as melhores formas de maximizar seus pontos com passagens de tarifas especiais corporativas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rodapé Compacto -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand">
+          <div class="logo">
+            <div class="logo-icon"><i class="fas fa-paper-plane"></i></div>
+            <div class="logo-text">
+              <h1 style="color: #fff; font-size: 1.35rem;">Translatur</h1>
+              <span>Viagens & Turismo</span>
+            </div>
+          </div>
+          <p>Agência especializada em passagens aéreas e viagens completas com tarifas negociadas e assistência 24h.</p>
+          <div class="footer-social-links">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-links-col">
+          <h4>Serviços</h4>
+          <ul>
+            <li><a href="passagens.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Passagens Aéreas</a></li>
+            <li><a href="hospedagens.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Hotéis & Resorts</a></li>
+            <li><a href="passeios.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Passeios & Tours</a></li>
+            <li><a href="transfers.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Translados & Transfers</a></li>
+            <li><a href="cruzeiros.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Cruzeiros Marítimos</a></li>
+            <li><a href="seguro-viagem.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Seguro Viagem</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4>Central de Apoio</h4>
+          <ul class="footer-contact-info">
+            <li><i class="fas fa-location-dot"></i> <span>Av. Paulista, 1000 - São Paulo, SP</span></li>
+            <li><i class="fas fa-phone"></i> <span>(11) 9999-9999 • Atendimento Central</span></li>
+            <li><i class="fas fa-clock"></i> <span>Seg à Sex: 09h às 19h | Sáb: 09h às 14h</span></li>
+          </ul>
+        </div>
+
+        <div class="footer-newsletter">
+          <h4>Alertas de Tarifas</h4>
+          <p>Receba ofertas secretas de passagens aéreas:</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Digite seu melhor e-mail" required>
+            <button type="submit">Cadastrar</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-badges-bar">
+        <div class="agency-seals">
+          <span class="seal-pill"><i class="fas fa-shield-halved"></i> CADASTUR Ministério do Turismo</span>
+          <span class="seal-pill"><i class="fas fa-check-circle"></i> Agência Associada ABAV</span>
+          <span class="seal-pill"><i class="fas fa-lock"></i> Compra 100% Segura SSL</span>
+        </div>
+        <div class="payment-methods">
+          <span class="payment-label">Pagamento facilitado:</span>
+          <i class="fab fa-cc-visa" title="Visa"></i>
+          <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+          <i class="fas fa-qrcode" title="Pix com desconto"></i>
+          <i class="fas fa-barcode" title="Boleto Parcelado"></i>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <p>&copy; 2025 Translatur Viagens e Turismo Ltda. CNPJ: 00.000.000/0001-00. Todos os direitos reservados.</p>
+        <div>
+          <a href="index.html">Página Principal</a> &bull; 
+          <a href="#">Política de Privacidade</a> &bull; 
+          <a href="#">Termos e Condições</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="scripts/main.js"></script>
+</body>
+</html>

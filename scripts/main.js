@@ -1,53 +1,51 @@
-// Import modules
+/* ==========================================================================
+   Main Application Entrypoint
+   Inicialização de módulos e interações globais
+   ========================================================================== */
+
 import { initCarousel } from './carousel.js';
-import { setupSearch } from './search.js';
+import { setupSearch, showToast } from './search.js';
 import { initTestimonials } from './testimonials.js';
 import { setupMobileMenu } from './mobileMenu.js';
 
-// Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize all components
+  // Inicialização de componentes
   initCarousel();
   setupSearch();
   initTestimonials();
   setupMobileMenu();
-  setupHeaderSearch();
-  
-  // Handle header scroll effect
   handleHeaderScroll();
+  setupNewsletter();
 });
 
-// Handle header scroll effect
+// Efeito de rolagem do cabeçalho
 function handleHeaderScroll() {
   const header = document.getElementById('header');
-  
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) {
+  if (!header) return;
+
+  const onScroll = () => {
+    if (window.scrollY > 40) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
     }
-  });
-}
-
-// Setup header search functionality
-function setupHeaderSearch() {
-  const searchInput = document.getElementById('headerSearchInput');
-  const searchBtn = document.getElementById('headerSearchBtn');
-
-  const performSearch = () => {
-    const searchTerm = searchInput.value.trim().toLowerCase();
-    
-    if (searchTerm) {
-      window.location.href = `cruzeiros.html?destino=${encodeURIComponent(searchTerm)}`;
-    }
   };
 
-  searchBtn.addEventListener('click', performSearch);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
 
-  searchInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      performSearch();
+// Formulário da Newsletter
+function setupNewsletter() {
+  const form = document.querySelector('.newsletter-form');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = form.querySelector('input[type="email"]');
+    if (input && input.value) {
+      showToast('Obrigado! Você receberá ofertas e cupons exclusivos no seu e-mail.');
+      input.value = '';
     }
   });
 }

@@ -1,316 +1,695 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Translatur - Viagens & Turismo</title>
+  <title>Translatur - Viagens, Pacotes Turísticos e Passagens Aéreas</title>
+  <meta name="description" content="Translatur: sua agência de viagens com pacotes completos, passagens aéreas e hotéis em até 12x sem juros. Consultoria personalizada e suporte 24h." />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230284c7'><path d='M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z'/></svg>" />
+
+  <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Estilos Modulares -->
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/header.css">
   <link rel="stylesheet" href="styles/hero.css">
-  <link rel="stylesheet" href="styles/services.css">
   <link rel="stylesheet" href="styles/search.css">
+  <link rel="stylesheet" href="styles/services.css">
   <link rel="stylesheet" href="styles/testimonials.css">
   <link rel="stylesheet" href="styles/footer.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+
+  <!-- ==========================================================================
+       Cabeçalho / Barra de Navegação
+       ========================================================================== -->
   <header id="header">
     <div class="container">
-      <div class="logo">
-        <h1>Translatur</h1>
-      </div>
-
-      <div class="header-search">
-        <input type="text" id="headerSearchInput" placeholder="Buscar destinos...">
-        <button id="headerSearchBtn">
-          <i class="fas fa-search"></i>
-        </button>
-      </div>
+      <a href="#hero" class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-paper-plane"></i>
+        </div>
+        <div class="logo-text">
+          <h1>Translatur</h1>
+          <span>Viagens & Turismo</span>
+        </div>
+      </a>
 
       <nav>
-        <ul class="nav-links">        
-          <li><a href="#home">Home</a></li>
+        <ul class="nav-links">
+          <li><a href="#hero" class="active">Início</a></li>
+          <li><a href="#destinations-deals">Pacotes</a></li>
           <li><a href="#services">Serviços</a></li>
-          <li><a href="#search">Buscar</a></li>
+          <li><a href="#why-us">Vantagens</a></li>
           <li><a href="#testimonials">Depoimentos</a></li>
-          <li><a href="#contact">Contato</a></li>
+          <li><a href="#footer">Contato</a></li>
+
         </ul>
       </nav>
 
-      <div class="hamburger">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
+      <div class="header-actions">
+        <button class="hamburger" aria-label="Abrir Menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
       </div>
     </div>
   </header>
 
+  <!-- Overlay para fechar menu mobile ao clicar fora -->
+  <div class="nav-backdrop"></div>
+
+  <!-- ==========================================================================
+       Hero Section com Cartões Flutuantes e Atmosfera Viva
+       ========================================================================== -->
   <section id="hero">
-    <div class="hero-content">
-      <h1>Descubra o mundo com a Translatur</h1>
-      <p>Passagens aéreas, hospedagens, passeios e muito mais!</p>
-      <a href="#search" class="btn-primary">Comece sua aventura</a>
+    <!-- Cartão Flutuante Esquerdo -->
+    <div class="floating-hero-card left">
+      <img src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=100&q=80" alt="Cancún" class="floating-card-thumb">
+      <div class="floating-card-info">
+        <span class="floating-card-title">Cancún All-Inclusive</span>
+        <span class="floating-card-price">12x de R$ 415/mês</span>
+      </div>
+    </div>
+
+    <!-- Cartão Flutuante Direito -->
+    <div class="floating-hero-card right">
+      <img src="https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?auto=format&fit=crop&w=100&q=80" alt="Porto de Galinhas" class="floating-card-thumb">
+      <div class="floating-card-info">
+        <span class="floating-card-title">Porto de Galinhas</span>
+        <span class="floating-card-price">⭐ 4.9 • Alta procura</span>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="hero-wrapper">
+        <div class="hero-pill">
+          <i class="fas fa-award"></i>
+          <span>Agência Recomendada • Mais de 12.000 viajantes atendidos</span>
+        </div>
+
+        <div class="hero-content">
+          <h1>Viva experiências <span class="editorial-serif">inesquecíveis</span> <span class="highlight">pelo mundo</span></h1>
+          <p>
+            Roteiros personalizados, passagens aéreas e pacotes exclusivos com parcelamento em até 12x sem juros e suporte 24h dedicado a você.
+          </p>
+        </div>
+
+        <div class="hero-benefits">
+          <div class="benefit-item">
+            <i class="fas fa-headset"></i> Suporte 24h em Português
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-credit-card"></i> Em até 12x sem juros
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-shield-alt"></i> Cancelamento flexível
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
+  <!-- ==========================================================================
+       Motor de Busca Interativo (Booking Engine)
+       ========================================================================== -->
+  <section class="search-section" id="search-section">
+    <div class="container">
+      <div class="search-widget-card">
+        <!-- Abas de Serviço -->
+        <div class="search-tabs">
+          <button class="tab-btn active" data-tab="packages">
+            <i class="fas fa-umbrella-beach"></i> Pacotes Completos
+          </button>
+          <button class="tab-btn" data-tab="flights">
+            <i class="fas fa-plane"></i> Passagens Aéreas
+          </button>
+          <button class="tab-btn" data-tab="hotels">
+            <i class="fas fa-hotel"></i> Hospedagens
+          </button>
+          <button class="tab-btn" data-tab="transfers">
+            <i class="fas fa-car-side"></i> Passeios & Transfers
+          </button>
+        </div>
+
+        <!-- Formulário de Campos -->
+        <div class="search-form">
+          <div class="search-grid">
+            
+            <!-- Campo Origem com Autocomplete -->
+            <div class="search-field">
+              <div class="field-box" id="origin-field-box">
+                <div class="field-icon"><i class="fas fa-plane-departure"></i></div>
+                <div class="field-info">
+                  <label for="search-origin">Saindo de</label>
+                  <input type="text" id="search-origin" value="São Paulo (Todos os aeroportos)" placeholder="Digite a cidade de origem..." autocomplete="off">
+                </div>
+              </div>
+
+              <!-- Dropdown de Sugestões de Origem -->
+              <div class="autocomplete-dropdown" id="origin-autocomplete"></div>
+            </div>
+
+            <!-- Campo Destino com Autocomplete -->
+            <div class="search-field">
+              <div class="field-box" id="destination-field-box">
+                <div class="field-icon"><i class="fas fa-location-dot"></i></div>
+                <div class="field-info">
+                  <label for="search-destination">Indo para</label>
+                  <input type="text" id="search-destination" placeholder="Digite ao menos 3 letras de um destino..." autocomplete="off">
+                </div>
+              </div>
+
+              <!-- Dropdown de Sugestões Rápidas -->
+              <div class="autocomplete-dropdown" id="destination-autocomplete"></div>
+            </div>
+
+            <!-- Campo Datas (Ida e Volta com Abertura Direta do Calendário) -->
+            <div class="search-field">
+              <div class="field-box search-dates-row" id="dates-field-box" style="gap: 8px;">
+                <div class="field-icon"><i class="fas fa-calendar-alt"></i></div>
+                <div class="field-info date-subfield" id="departure-date-box" style="flex: 1; cursor: pointer;">
+                  <label for="departure-date" style="cursor: pointer;">Ida</label>
+                  <input type="date" id="departure-date" style="cursor: pointer;">
+                </div>
+                <div class="field-info date-subfield" id="return-date-box" style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 8px; cursor: pointer;">
+                  <label for="return-date" style="cursor: pointer;">Volta</label>
+                  <input type="date" id="return-date" style="cursor: pointer;">
+                </div>
+              </div>
+            </div>
+
+            <!-- Campo Passageiros com Popover Interativo -->
+            <div class="search-field">
+              <div class="field-box" id="passengers-trigger">
+                <div class="field-icon"><i class="fas fa-user-friends"></i></div>
+                <div class="field-info">
+                  <label>Viajantes</label>
+                  <span class="field-display-value" id="passengers-display">2 Passageiros</span>
+                </div>
+              </div>
+
+              <!-- Popover de Contadores -->
+              <div class="passengers-popover" id="passengers-popover">
+                <div class="passenger-row">
+                  <div class="passenger-meta">
+                    <span class="title">Adultos</span>
+                    <span class="desc">A partir de 12 anos</span>
+                  </div>
+                  <div class="counter-controls">
+                    <button class="counter-btn" id="btn-adults-minus" aria-label="Remover adulto">-</button>
+                    <span class="counter-value" id="count-adults">2</span>
+                    <button class="counter-btn" id="btn-adults-plus" aria-label="Adicionar adulto">+</button>
+                  </div>
+                </div>
+
+                <div class="passenger-row">
+                  <div class="passenger-meta">
+                    <span class="title">Crianças</span>
+                    <span class="desc">2 a 11 anos</span>
+                  </div>
+                  <div class="counter-controls">
+                    <button class="counter-btn" id="btn-children-minus" disabled aria-label="Remover criança">-</button>
+                    <span class="counter-value" id="count-children">0</span>
+                    <button class="counter-btn" id="btn-children-plus" aria-label="Adicionar criança">+</button>
+                  </div>
+                </div>
+
+                <div class="passenger-row">
+                  <div class="passenger-meta">
+                    <span class="title">Bebês</span>
+                    <span class="desc">Menores de 2 anos</span>
+                  </div>
+                  <div class="counter-controls">
+                    <button class="counter-btn" id="btn-babies-minus" disabled aria-label="Remover bebê">-</button>
+                    <span class="counter-value" id="count-babies">0</span>
+                    <button class="counter-btn" id="btn-babies-plus" aria-label="Adicionar bebê">+</button>
+                  </div>
+                </div>
+
+                <button class="popover-apply-btn" id="apply-passengers-btn">Confirmar Viajantes</button>
+              </div>
+            </div>
+
+            <!-- Botão de Ação Principal -->
+            <button class="search-submit-btn" id="main-search-submit">
+              <i class="fas fa-magnifying-glass"></i>
+              <span>Buscar</span>
+            </button>
+
+          </div>
+
+          <!-- Tags Rápidas de Destinos Famosos -->
+          <div class="quick-tags">
+            <span class="quick-tags-label"><i class="fas fa-fire-flame-curved" style="color: #f97316;"></i> Destinos em alta:</span>
+            <button class="quick-tag-chip" data-query="Porto de Galinhas">Porto de Galinhas</button>
+            <button class="quick-tag-chip" data-query="Gramado">Gramado & Canela</button>
+            <button class="quick-tag-chip" data-query="Cancún">Cancún All-Inclusive</button>
+            <button class="quick-tag-chip" data-query="Maragogi">Maragogi</button>
+            <button class="quick-tag-chip" data-query="Paris">Paris & Roma</button>
+            <button class="quick-tag-chip" data-query="Santiago">Santiago & Neve</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       Vitrine de Pacotes & Resultados de Busca
+       ========================================================================== -->
+  <section id="destinations-deals">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fas fa-compass"></i> Roteiros Selecionados</span>
+        <h2 class="section-title">Pacotes Mais Desejados do Momento</h2>
+        <p class="section-subtitle">
+          Passagens aéreas, hospedagens selecionadas e passeios exclusivos com tarifas negociadas em até 12x sem juros.
+        </p>
+      </div>
+
+      <!-- Filtros por Categoria com Emojis e Estilo Humano -->
+      <div class="category-filter-chips">
+        <button class="chip-btn active" data-category="all">✨ Todos os Destinos</button>
+        <button class="chip-btn" data-category="nordeste">🏖️ Praias & Nordeste</button>
+        <button class="chip-btn" data-category="serra">🍷 Serra Gaúcha & Frio</button>
+        <button class="chip-btn" data-category="internacional">🌍 Internacionais</button>
+        <button class="chip-btn" data-category="favorites">❤️ Favoritos (0)</button>
+      </div>
+
+      <!-- Grid com Pacotes Injetados Dinamicamente -->
+      <div class="packages-grid" id="packages-results-container">
+        <!-- Renderizado dinamicamente por scripts/search.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       Serviços & Consultoria de Viagens (Seção Escura Sofisticada)
+       ========================================================================== -->
   <section id="services">
     <div class="container">
-      <h2 class="section-title">Nossos Serviços</h2>
-      <div class="services-carousel">
-        <button class="carousel-nav prev"><i class="fas fa-chevron-left"></i></button>
+      <div class="section-header">
+        <span class="section-tag"><i class="fas fa-suitcase-rolling"></i> Experiência Completa</span>
+        <h2 class="section-title">Tudo O Que Sua Viagem Precisa</h2>
+        <p class="section-subtitle">
+          Cuidamos de cada detalhe com assessoria humana para você viajar sem imprevistos.
+        </p>
+      </div>
+
+      <div class="services-carousel-wrapper">
         <div class="services-container">
+
+          <!-- Card 1 -->
           <div class="service-card">
             <div class="service-image">
-              <img src="https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg" alt="Passagens Aéreas">
+              <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80" alt="Passagens Aéreas">
+              <div class="service-icon-badge"><i class="fas fa-plane-departure"></i></div>
             </div>
             <div class="service-info">
               <h3>Passagens Aéreas</h3>
-              <p>Encontre os melhores preços para qualquer destino</p>
+              <p>Comparamos tarifas das melhores companhias para garantir os menores preços e conexões inteligentes.</p>
+              <ul class="service-features-list">
+                <li><i class="fas fa-check"></i> Marcação de assentos inclusa</li>
+                <li><i class="fas fa-check"></i> Gestão de milhas e upgrades</li>
+              </ul>
+              <a href="passagens.html" class="service-cta-link">
+                Consultar Voos <i class="fas fa-arrow-right"></i>
+              </a>
             </div>
           </div>
 
+          <!-- Card 2 -->
           <div class="service-card">
             <div class="service-image">
-              <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg" alt="Hospedagens">
+              <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80" alt="Hospedagens e Resorts">
+              <div class="service-icon-badge"><i class="fas fa-hotel"></i></div>
             </div>
             <div class="service-info">
-              <h3>Hospedagens</h3>
-              <p>Hotéis e pousadas com conforto e qualidade</p>
+              <h3>Hotéis & Resorts</h3>
+              <p>Hotéis boutique, pousadas charmosas e resorts All-Inclusive avaliados pessoalmente por especialistas.</p>
+              <ul class="service-features-list">
+                <li><i class="fas fa-check"></i> Early check-in prioritário</li>
+                <li><i class="fas fa-check"></i> Café da manhã ou All-Inclusive</li>
+              </ul>
+              <a href="hospedagens.html" class="service-cta-link">
+                Ver Hospedagens <i class="fas fa-arrow-right"></i>
+              </a>
             </div>
           </div>
 
+          <!-- Card 3 -->
           <div class="service-card">
             <div class="service-image">
-              <img src="https://images.pexels.com/photos/1660995/pexels-photo-1660995.jpeg" alt="Passeios">
+              <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=600&q=80" alt="Passeios Guiados">
+              <div class="service-icon-badge"><i class="fas fa-map-marked-alt"></i></div>
             </div>
             <div class="service-info">
-              <h3>Passeios</h3>
-              <p>Experiências inesquecíveis em destinos turísticos</p>
+              <h3>Passeios & Experiências</h3>
+              <p>Tours exclusivos com guias credenciados, degustações gastronômicas e ingressos antecipados sem filas.</p>
+              <ul class="service-features-list">
+                <li><i class="fas fa-check"></i> Evite filas nas grandes atrações</li>
+                <li><i class="fas fa-check"></i> Roteiros privativos ou em grupo</li>
+              </ul>
+              <a href="passeios.html" class="service-cta-link">
+                Conhecer Passeios <i class="fas fa-arrow-right"></i>
+              </a>
             </div>
           </div>
 
+          <!-- Card 4 -->
           <div class="service-card">
             <div class="service-image">
-              <img src="https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg" alt="Ingressos">
+              <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80" alt="Translados e Transporte">
+              <div class="service-icon-badge"><i class="fas fa-car-side"></i></div>
             </div>
             <div class="service-info">
-              <h3>Ingressos</h3>
-              <p>Acesso garantido às melhores atrações</p>
+              <h3>Translados & Transfers</h3>
+              <p>Transporte com pontualidade do aeroporto ao hotel com motoristas profissionais e veículos climatizados.</p>
+              <ul class="service-features-list">
+                <li><i class="fas fa-check"></i> Veículos novos e confortáveis</li>
+                <li><i class="fas fa-check"></i> Monitoramento de atrasos de voo</li>
+              </ul>
+              <a href="transfers.html" class="service-cta-link">
+                Solicitar Transfer <i class="fas fa-arrow-right"></i>
+              </a>
             </div>
           </div>
 
+          <!-- Card 5 -->
           <div class="service-card">
             <div class="service-image">
-              <img src="https://images.pexels.com/photos/5835496/pexels-photo-5835496.jpeg" alt="Translado">
+              <img src="https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=600&q=80" alt="Cruzeiros Marítimos">
+              <div class="service-icon-badge"><i class="fas fa-ship"></i></div>
             </div>
             <div class="service-info">
-              <h3>Translado</h3>
-              <p>Transporte seguro e pontual durante sua viagem</p>
-            </div>
-          </div>
-          
-          <div class="service-card">
-            <div class="service-image">
-              <img src="https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg" alt="Cruzeiros">
-            </div>
-            <div class="service-info">
-              <h3>Cruzeiros</h3>
-              <p>Navios luxuosos para uma viagem inesquecível</p>
-            </div>
-          </div>
-
-          <div class="service-card">
-            <div class="service-image">
-              <img src="https://images.pexels.com/photos/7821741/pexels-photo-7821741.jpeg" alt="Seguro Viagem">
-            </div>
-            <div class="service-info">
-              <h3>Seguro Viagem</h3>
-              <p>Viaje com tranquilidade e segurança</p>
+              <h3>Cruzeiros Marítimos</h3>
+              <p>Navios luxuosos pelas costas brasileiras, Caribe e Mediterrâneo com gastronomia e shows inclusos.</p>
+              <ul class="service-features-list">
+                <li><i class="fas fa-check"></i> Cabines com varanda e vista mar</li>
+                <li><i class="fas fa-check"></i> Pacotes com bebidas inclusas</li>
+              </ul>
+              <a href="cruzeiros.html" class="service-cta-link">
+                Roteiros de Cruzeiros <i class="fas fa-arrow-right"></i>
+              </a>
             </div>
           </div>
 
+          <!-- Card 6 -->
           <div class="service-card">
             <div class="service-image">
-              <img src="https://images.pexels.com/photos/3155666/pexels-photo-3155666.jpeg" alt="Pacotes Turísticos">
-            </div>            
+              <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Seguro Viagem">
+              <div class="service-icon-badge"><i class="fas fa-shield-heart"></i></div>
+            </div>
             <div class="service-info">
-              <h3>Pacotes Turísticos</h3>
-              <p>Ofertas completas para sua viagem perfeita</p>
+              <h3>Seguro Viagem & Assistência</h3>
+              <p>Cobertura médica internacional, seguro de bagagem e assistência jurídica para qualquer emergência.</p>
+              <ul class="service-features-list">
+                <li><i class="fas fa-check"></i> Atende exigências do Tratado de Schengen</li>
+                <li><i class="fas fa-check"></i> Central de emergência em português</li>
+              </ul>
+              <a href="seguro-viagem.html" class="service-cta-link">
+                Cotar Seguro <i class="fas fa-arrow-right"></i>
+              </a>
             </div>
           </div>
+
         </div>
-        <button class="carousel-nav next"><i class="fas fa-chevron-right"></i></button>
+
+        <!-- Controles do Carrossel -->
+        <div class="carousel-controls-bar">
+          <button class="carousel-btn prev" aria-label="Anterior"><i class="fas fa-arrow-left"></i></button>
+          <button class="carousel-btn next" aria-label="Próximo"><i class="fas fa-arrow-right"></i></button>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="search">
+  <!-- ==========================================================================
+       Por Que Viajar com a Translatur (Pilares de Confiança)
+       ========================================================================== -->
+  <section class="why-us-section" id="why-us">
     <div class="container">
-      <h2 class="section-title">Encontre a Viagem Perfeita</h2>
-      <div class="search-container">
-        <div class="search-filters">
-          <div class="filter-group">
-            <label for="search-type">Tipo de Serviço</label>
-            <select id="search-type">
-              <option value="all">Todos os Serviços</option>
-              <option value="flights">Passagens Aéreas</option>
-              <option value="hotels">Hospedagens</option>
-              <option value="tours">Passeios</option>
-              <option value="tickets">Ingressos</option>
-              <option value="transfers">Translado</option>
-              <option value="cruises">Cruzeiros</option>
-              <option value="insurance">Seguro Viagem</option>
-              <option value="packages">Pacotes Turísticos</option>
-            </select>
-          </div>
-          
-          <div class="filter-group">
-            <label for="destination">Destino</label>
-            <input type="text" id="destination" placeholder="Para onde você quer ir?">
-          </div>
-          <div class="filter-group">
-            <label for="departure-date">Data de Ida</label>
-            <input type="date" id="departure-date">
-          </div>
-          <div class="filter-group">
-            <label for="return-date">Data de Volta</label>
-            <input type="date" id="return-date">
-          </div>
-          <select name="type-cabine" id="type-cabine">
-            <option value="economy">Classe Econômica</option>
-            <option value="business">Classe Executiva</option>
-            <option value="first-class">Primeira Classe</option>
-          </select >
-          
-          <div class="filter-group">
-            <label for="travelers">Passageiros</label>
-            <select id="travelers">
-              <option value="1">1 Passageiro</option>
-              <option value="2">2 Passageiros</option>
-              <option value="3">3 Passageiros</option>
-              <option value="4">4 Passageiros</option>
-              <option value="5+">5+ Passageiros</option>
-            </select>
-          </div>
+      <div class="section-header">
+        <span class="section-tag"><i class="fas fa-award"></i> Segurança & Credibilidade</span>
+        <h2 class="section-title">Por Que Viajar com a Translatur?</h2>
+        <p class="section-subtitle">
+          Muito mais que emitir passagens: somos seu parceiro dedicado antes, durante e após a viagem.
+        </p>
+      </div>
+
+      <div class="trust-grid">
+        <div class="trust-card">
+          <div class="trust-icon"><i class="fas fa-headset"></i></div>
+          <h3>Suporte Humano 24/7</h3>
+          <p>Nada de robôs com respostas automáticas. Um consultor experiente cuida de imprevistos a qualquer hora no WhatsApp.</p>
         </div>
-        <button class="search-button">Buscar</button>
+
+        <div class="trust-card">
+          <div class="trust-icon"><i class="fas fa-wallet"></i></div>
+          <h3>Em até 12x Sem Juros</h3>
+          <p>Facilidade real de pagamento no cartão de crédito, Pix à vista com desconto ou boleto bancário parcelado.</p>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon"><i class="fas fa-certificate"></i></div>
+          <h3>Agência Cadastrada</h3>
+          <p>Registro ativo no Ministério do Turismo (CADASTUR), ABAV e IATA, garantindo contratos transparentes e seguros.</p>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon"><i class="fas fa-sliders"></i></div>
+          <h3>Roteiros Sob Medida</h3>
+          <p>Adaptamos voos, hospedagens e atividades ao seu ritmo, estilo de viagem e orçamento sem taxas ocultas.</p>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- ==========================================================================
+       Depoimentos de Clientes Verificados
+       ========================================================================== -->
   <section id="testimonials">
     <div class="container">
-      <h2 class="section-title">O Que Nossos Clientes Dizem</h2>
-      <div class="testimonials-container">
-        <div class="testimonial">
-          <div class="testimonial-content">
-            <p>"Minha viagem para a Europa foi perfeita graças à Translatur. Desde a compra das passagens até o seguro viagem, tudo foi muito bem organizado."</p>
-          </div>
-
-          <div class="testimonial-author">
-            <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg" alt="Cliente">
-            <div class="author-info">
-              <h4>Carlos Silva</h4>
-              <p>Rio de Janeiro</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial">
-          <div class="testimonial-content">
-            <p>"O atendimento da Translatur é excepcional! Os preços são justos e o suporte durante a viagem me deixou tranquila para aproveitar minhas férias."</p>
-          </div>
-          
-          <div class="testimonial-author">
-            <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg" alt="Cliente">
-            <div class="author-info">
-              <h4>Ana Oliveira</h4>
-              <p>São Paulo</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial">
-          <div class="testimonial-content">
-            <p>"Os pacotes turísticos da Translatur são incríveis! Consegui economizar muito e aproveitei cada momento da minha viagem com a família."</p>
-          </div>
-          <div class="testimonial-author">
-            <img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg" alt="Cliente">
-            <div class="author-info">
-              <h4>Roberto Santos</h4>
-              <p>Belo Horizonte</p>
-            </div>
-          </div>
-        </div>
+      <div class="section-header">
+        <span class="section-tag"><i class="fas fa-heart"></i> Histórias Reais</span>
+        <h2 class="section-title">O Que Nossos Viajantes Dizem</h2>
+        <p class="section-subtitle">
+          A satisfação e tranquilidade de quem já realizou o sonho da viagem perfeita conosco.
+        </p>
       </div>
 
-      <div class="testimonial-dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
+      <div class="testimonials-wrapper">
+        <div class="testimonials-track">
+
+          <!-- Depoimento 1 -->
+          <div class="testimonial-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-top-row">
+                <div class="stars-rating">
+                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <span class="verified-traveler-badge"><i class="fas fa-circle-check"></i> Viagem Verificada</span>
+              </div>
+              <p class="testimonial-quote">
+                "Nossa lua de mel em Cancún foi surreal! O hotel que a equipe da Translatur nos indicou superou todas as expectativas. Quando nosso voo de volta teve uma pequena alteração pela companhia, eles nos avisaram antes mesmo de chegarmos ao aeroporto e resolveram tudo no WhatsApp. Atendimento nota 1000!"
+              </p>
+              <div class="testimonial-author-row">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Ana Paula e Gabriel" class="author-avatar">
+                <div class="author-meta">
+                  <h4>Ana Paula & Gabriel</h4>
+                  <p>São Paulo, SP • <span class="trip-tag">Cancún All-Inclusive</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Depoimento 2 -->
+          <div class="testimonial-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-top-row">
+                <div class="stars-rating">
+                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <span class="verified-traveler-badge"><i class="fas fa-circle-check"></i> Viagem Verificada</span>
+              </div>
+              <p class="testimonial-quote">
+                "Viajar com a família toda para Gramado sempre dá receio pelo número de pessoas, mas a Translatur organizou desde as passagens até o tour das vinícolas com van privativa. Economizamos bastante comparado ao que vimos na internet e o parcelamento em 12x facilitou muito!"
+              </p>
+              <div class="testimonial-author-row">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Carlos Eduardo" class="author-avatar">
+                <div class="author-meta">
+                  <h4>Carlos Eduardo Santos</h4>
+                  <p>Belo Horizonte, MG • <span class="trip-tag">Serra Gaúcha em Família</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Depoimento 3 -->
+          <div class="testimonial-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-top-row">
+                <div class="stars-rating">
+                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <span class="verified-traveler-badge"><i class="fas fa-circle-check"></i> Viagem Verificada</span>
+              </div>
+              <p class="testimonial-quote">
+                "Primeira vez na Europa e eu não sabia por onde começar. A consultoria montou o roteiro Paris e Roma com trens nos horários certos, hotéis super bem localizados que dava para fazer tudo a pé e seguro viagem completo. Não viajo mais sem a Translatur!"
+              </p>
+              <div class="testimonial-author-row">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80" alt="Mariana Ribeiro" class="author-avatar">
+                <div class="author-meta">
+                  <h4>Mariana Ribeiro</h4>
+                  <p>Rio de Janeiro, RJ • <span class="trip-tag">Paris & Roma Clássicos</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Controles de Depoimentos -->
+        <div class="testimonials-nav-bar">
+          <button class="test-nav-arrow prev" aria-label="Depoimento anterior"><i class="fas fa-chevron-left"></i></button>
+          <div class="testimonial-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <button class="test-nav-arrow next" aria-label="Próximo depoimento"><i class="fas fa-chevron-right"></i></button>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- ==========================================================================
+       Rodapé Completo com Credenciais e Autoridade
+       ========================================================================== -->
   <footer id="footer">
     <div class="container">
-      <div class="footer-content">
-        <div class="footer-column">
-          <h3>Translatur</h3>
-          <p>Sua agência de viagens completa, oferecendo os melhores serviços turísticos com qualidade e preços justos.</p>
-          <div class="social-media">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
+      <div class="footer-top-grid">
+        
+        <!-- Coluna 1: Translatur -->
+        <div class="footer-brand">
+          <div class="logo" style="margin-bottom: 14px;">
+            <div class="logo-icon"><i class="fas fa-paper-plane"></i></div>
+            <div class="logo-text">
+              <h1 style="color: #fff; font-size: 1.5rem;">Translatur</h1>
+              <span>Viagens & Turismo</span>
+            </div>
+          </div>
+          <p>
+            Agência especializada em transformar planos em viagens memoráveis. Passagens, pacotes, cruzeiros e roteiros exclusivos com suporte 24h.
+          </p>
+          <div class="footer-social-links">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
-           
-        <!-- Aqui é será a barra que apresentará os serviços, e que posteriormente ainda vou melhorar o funcionamento-->
-        <div class="footer-column">
-          <h3>Serviços</h3>
+
+        <!-- Coluna 2: Destinos em Alta -->
+        <div class="footer-links-col">
+          <h4>Destinos Populares</h4>
           <ul>
-            <li><a href="#">Passagens Aéreas</a></li>
-            <li><a href="#">Hospedagens</a></li>
-            <li><a href="#">Passeios</a></li>
-            <li><a href="#">Ingressos</a></li>
-            <li><a href="#">Translado</a></li>
-            <li><a href="#">Cruzeiros</a></li>
-            <li><a href="#">Seguro Viagem</a></li>
-            <li><a href="#">Pacotes Turísticos</a></li>
-            <li><a href="#">Promoções</a></li>
-
+            <li><a href="#destinations-deals"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Porto de Galinhas</a></li>
+            <li><a href="#destinations-deals"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Serra Gaúcha</a></li>
+            <li><a href="#destinations-deals"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Cancún All-Inclusive</a></li>
+            <li><a href="#destinations-deals"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Maragogi</a></li>
+            <li><a href="#destinations-deals"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Europa Clássica</a></li>
+            <li><a href="#destinations-deals"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Santiago e Neve</a></li>
           </ul>
         </div>
 
-        
-        <div class="footer-column">
-          <h3>Contato</h3>
-          <ul class="contact-info">
-            <li><i class="fas fa-map-marker-alt"></i> Av. Paulista, 1000 - São Paulo</li>
-            <li><i class="fas fa-phone"></i> (11) 9999-9999</li>
-            <li><i class="fas fa-envelope"></i> contato@translatur.com</li>
+        <!-- Coluna 3: Serviços & Atendimento -->
+        <div class="footer-links-col">
+          <h4>Serviços</h4>
+          <ul>
+            <li><a href="passagens.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Passagens Aéreas</a></li>
+            <li><a href="hospedagens.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Hotéis & Resorts</a></li>
+            <li><a href="passeios.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Passeios & Tours</a></li>
+            <li><a href="transfers.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Translados & Transfers</a></li>
+            <li><a href="cruzeiros.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Cruzeiros Marítimos</a></li>
+            <li><a href="seguro-viagem.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Seguro Viagem</a></li>
           </ul>
-
         </div>
 
-        <div class="footer-column">
-          <h3>Newsletter</h3>
-          <p>Receba nossas ofertas e novidades</p>
+        <!-- Coluna 4: Contato & Newsletter -->
+        <div class="footer-newsletter">
+          <h4>Central de Atendimento</h4>
+          <ul class="footer-contact-info">
+            <li>
+              <i class="fas fa-location-dot"></i>
+              <span>Av. Paulista, 1000 - Bela Vista, São Paulo - SP</span>
+            </li>
+            <li>
+              <i class="fas fa-phone"></i>
+              <span>(11) 9999-9999 • Atendimento Central</span>
+            </li>
+            <li>
+              <i class="fas fa-clock"></i>
+              <span>Seg à Sex: 09h às 19h | Sáb: 09h às 14h<br><small style="color: #38bdf8;">Plantão 24h para viajantes em trânsito</small></span>
+            </li>
+          </ul>
+
+          <p style="margin-top: 16px;">Receba cupons e promoções secretas:</p>
           <form class="newsletter-form">
-            <input type="email" placeholder="Seu e-mail" required>
-            <button type="submit">Assinar</button>
+            <input type="email" placeholder="Digite seu melhor e-mail" required>
+            <button type="submit">Cadastrar</button>
           </form>
+        </div>
+
+      </div>
+
+      <!-- Selos de Credenciais e Pagamentos -->
+      <div class="footer-badges-bar">
+        <div class="agency-seals">
+          <span class="seal-pill"><i class="fas fa-shield-halved"></i> CADASTUR Ministério do Turismo</span>
+          <span class="seal-pill"><i class="fas fa-check-circle"></i> Agência Associada ABAV</span>
+          <span class="seal-pill"><i class="fas fa-lock"></i> Compra 100% Segura SSL</span>
+        </div>
+        <div class="payment-methods">
+          <span class="payment-label">Pagamento facilitado:</span>
+          <i class="fab fa-cc-visa" title="Visa"></i>
+          <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+          <i class="fas fa-qrcode" title="Pix com desconto"></i>
+          <i class="fas fa-barcode" title="Boleto Parcelado"></i>
         </div>
       </div>
 
-      <div class="footer-bottom">
-        <p>&copy; 2025 Translatur. Todos os direitos reservados.</p>
+      <!-- Barra de Direitos e Termos -->
+      <div class="footer-bottom-bar">
+        <p>&copy; 2025 Translatur Viagens e Turismo Ltda. CNPJ: 00.000.000/0001-00. Todos os direitos reservados.</p>
+        <div>
+          <a href="#">Política de Privacidade</a> &bull; 
+          <a href="#">Termos e Condições</a> &bull; 
+          <a href="#">Políticas de Cancelamento</a>
+        </div>
       </div>
     </div>
   </footer>
 
+  <!-- Modal de Detalhes do Pacote -->
+  <div class="modal-overlay" id="package-modal">
+    <div class="modal-card">
+      <button class="modal-close" aria-label="Fechar Modal">&times;</button>
+      <div id="package-modal-body">
+        <!-- Preenchido dinamicamente ao clicar em "Ver Detalhes" -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts Principais -->
   <script type="module" src="scripts/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,750 @@
+/* ==========================================================================
+   Subpages Styling (Translatur - Serviços Dedicados)
+   Segue rigorosamente o mesmo design system, paleta de cores e tipografia
+   ========================================================================== */
+
+/* Subpage Hero Banner */
+.subpage-hero {
+  position: relative;
+  padding: 150px 0 80px 0;
+  background: linear-gradient(180deg, rgba(8, 14, 33, 0.82) 0%, rgba(8, 14, 33, 0.6) 50%, rgba(8, 14, 33, 0.95) 100%),
+              url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+  color: #ffffff;
+  text-align: center;
+}
+
+.subpage-hero.hero-hotels {
+  background-image: linear-gradient(180deg, rgba(8, 14, 33, 0.82) 0%, rgba(8, 14, 33, 0.6) 50%, rgba(8, 14, 33, 0.95) 100%),
+                    url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1920&q=80');
+}
+
+.subpage-hero.hero-tours {
+  background-image: linear-gradient(180deg, rgba(8, 14, 33, 0.82) 0%, rgba(8, 14, 33, 0.6) 50%, rgba(8, 14, 33, 0.95) 100%),
+                    url('https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1920&q=80');
+}
+
+.subpage-hero.hero-transfers {
+  background-image: linear-gradient(180deg, rgba(8, 14, 33, 0.82) 0%, rgba(8, 14, 33, 0.6) 50%, rgba(8, 14, 33, 0.95) 100%),
+                    url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1920&q=80');
+}
+
+.subpage-hero.hero-cruises {
+  background-image: linear-gradient(180deg, rgba(8, 14, 33, 0.82) 0%, rgba(8, 14, 33, 0.6) 50%, rgba(8, 14, 33, 0.95) 100%),
+                    url('https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=1920&q=80');
+}
+
+.subpage-hero.hero-insurance {
+  background-image: linear-gradient(180deg, rgba(8, 14, 33, 0.82) 0%, rgba(8, 14, 33, 0.6) 50%, rgba(8, 14, 33, 0.95) 100%),
+                    url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1920&q=80');
+}
+
+.subpage-hero-content {
+  max-width: 860px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.breadcrumb-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-bottom: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 6px 16px;
+  border-radius: 9999px;
+  backdrop-filter: blur(8px);
+}
+
+.breadcrumb-nav a {
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.breadcrumb-nav a:hover {
+  color: #ffffff;
+}
+
+.subpage-hero h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.subpage-hero p {
+  font-size: 1.15rem;
+  color: #e2e8f0;
+  line-height: 1.6;
+}
+
+/* Formulário de Busca / Filtro Dedicado da Subpágina */
+.subpage-filter-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.15), 0 0 0 1px rgba(226, 232, 240, 0.9);
+  padding: 24px;
+  margin-top: -45px;
+  position: relative;
+  z-index: 20;
+}
+
+.subpage-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) auto;
+  gap: 16px;
+  align-items: center;
+}
+
+/* Grids de Itens de Subpáginas */
+.items-showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+/* Card Específico de Voo */
+.flight-card {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+  box-shadow: var(--shadow-sm);
+  padding: 24px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.flight-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: #0284c7;
+}
+
+.airline-badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.airline-logo-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.airline-logo-info i {
+  color: #0284c7;
+  font-size: 1.25rem;
+}
+
+.flight-route-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.route-stop {
+  display: flex;
+  flex-direction: column;
+}
+
+.route-stop .time {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1;
+}
+
+.route-stop .city {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.flight-path-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  padding: 0 16px;
+}
+
+.flight-path-line {
+  position: relative;
+  width: 100%;
+  height: 2px;
+  background: #cbd5e1;
+  margin: 6px 0;
+}
+
+.flight-path-line::after {
+  content: '\f072';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #0284c7;
+  font-size: 0.85rem;
+  background: #ffffff;
+  padding: 0 4px;
+}
+
+.flight-duration {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* Card de Hotel */
+.hotel-card {
+  background: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.hotel-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: #0284c7;
+}
+
+.hotel-thumb-wrap {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+}
+
+.hotel-thumb-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.hotel-card:hover .hotel-thumb-wrap img {
+  transform: scale(1.06);
+}
+
+.hotel-badge-tag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(15, 23, 42, 0.85);
+  color: #ffffff;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hotel-badge-tag.badge-allinc {
+  background: rgba(2, 132, 199, 0.9);
+}
+
+.subpage-card-body {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.subpage-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 6px;
+  gap: 10px;
+}
+
+.subpage-card-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.3;
+}
+
+.subpage-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #d97706;
+}
+
+.subpage-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 12px;
+}
+
+.subpage-desc {
+  font-size: 0.88rem;
+  color: #475569;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.subpage-amenities-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.amenity-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #f1f5f9;
+  color: #334155;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.amenity-chip i {
+  color: #0284c7;
+}
+
+.subpage-card-footer {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.subpage-price-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.subpage-price-meta .label {
+  font-size: 0.72rem;
+  color: #64748b;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.subpage-price-meta .val {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+}
+
+.subpage-price-meta .sub {
+  font-size: 0.72rem;
+  color: #0284c7;
+  font-weight: 600;
+}
+
+.btn-subpage-book {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: var(--radius-full);
+  background: var(--color-brand);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.btn-subpage-book:hover {
+  background: var(--color-brand-hover);
+  transform: translateY(-2px);
+  color: #ffffff;
+}
+
+/* Tours & Experiências */
+.tour-card {
+  background: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.tour-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: #0284c7;
+}
+
+.tour-thumb-wrap {
+  position: relative;
+  height: 210px;
+  overflow: hidden;
+}
+
+.tour-thumb-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.tour-card:hover .tour-thumb-wrap img {
+  transform: scale(1.06);
+}
+
+.tour-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-bottom: 12px;
+}
+
+.tour-meta-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Transfers & Translados */
+.transfer-route-card {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.transfer-route-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: #0284c7;
+}
+
+.transfer-vehicle-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  color: #0369a1;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.transfer-route-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 12px 0 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.transfer-specs {
+  display: flex;
+  gap: 14px;
+  font-size: 0.82rem;
+  color: #64748b;
+  margin-bottom: 16px;
+}
+
+.transfer-specs span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Cruzeiros Marítimos */
+.cruise-card {
+  background: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.cruise-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: #0284c7;
+}
+
+.cruise-thumb-wrap {
+  position: relative;
+  height: 210px;
+  overflow: hidden;
+}
+
+.cruise-thumb-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.cruise-card:hover .cruise-thumb-wrap img {
+  transform: scale(1.06);
+}
+
+.cruise-ship-tag {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0284c7;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cruise-itinerary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 12px 0 16px 0;
+  background: #f8fafc;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px dashed #cbd5e1;
+}
+
+.cruise-itinerary-list .stop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: #334155;
+  font-weight: 600;
+}
+
+.cruise-itinerary-list .stop i {
+  color: #0284c7;
+  font-size: 0.7rem;
+}
+
+/* Tabela Comparativa de Seguro Viagem */
+.insurance-comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 28px;
+  margin-top: 40px;
+}
+
+.insurance-plan-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  padding: 32px 26px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.insurance-plan-card.featured {
+  border-color: #0284c7;
+  box-shadow: 0 10px 30px rgba(2, 132, 199, 0.15);
+  transform: scale(1.02);
+}
+
+.insurance-plan-card.featured::before {
+  content: 'MAIS CONTRATADO';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0284c7;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 4px 14px;
+  border-radius: 9999px;
+  letter-spacing: 0.08em;
+}
+
+.plan-header h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.plan-coverage-limit {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0284c7;
+  margin-bottom: 16px;
+}
+
+.plan-price-box {
+  margin: 16px 0 24px 0;
+  padding: 14px 0;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.plan-price-box .price {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.plan-price-box .period {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.plan-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+  flex: 1;
+}
+
+.plan-features-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: #334155;
+}
+
+.plan-features-list li i {
+  color: #10b981;
+  margin-top: 3px;
+}
+
+/* Seção de FAQ / Dúvidas */
+.faq-section {
+  background-color: #f8fafc;
+  padding: 80px 0;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+}
+
+.faq-item h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.faq-item p {
+  font-size: 0.9rem;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .subpage-hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .subpage-filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .insurance-plan-card.featured {
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .subpage-hero {
+    padding: 120px 0 60px 0;
+  }
+
+  .subpage-hero h1 {
+    font-size: 1.85rem;
+  }
+
+  .subpage-hero p {
+    font-size: 0.95rem;
+  }
+
+  .subpage-filter-card {
+    padding: 18px 14px;
+    margin-top: -30px;
+  }
+
+  .items-showcase-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .transfer-specs {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .flight-route-row {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}

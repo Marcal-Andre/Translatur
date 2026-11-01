@@ -1,62 +1,73 @@
-// Testimonials carousel
+/* ==========================================================================
+   Testimonials Module
+   Carrossel de depoimentos verificados com setas, dots e rotação automática
+   ========================================================================== */
+
 export function initTestimonials() {
-  const testimonials = document.querySelectorAll('.testimonial');
-  const dots = document.querySelectorAll('.dot');
-  
-  if (testimonials.length === 0 || dots.length === 0) return;
-  
-  let currentSlide = 0;
-  let interval;
-  
-  // Function to show a specific slide
-  const showSlide = (index) => {
-    // Hide all testimonials
-    testimonials.forEach(testimonial => {
-      testimonial.style.transform = `translateX(-${index * 100}%)`;
+  const slides = document.querySelectorAll('.testimonial-slide');
+  const dots = document.querySelectorAll('.testimonial-dots .dot');
+  const prevBtn = document.querySelector('.test-nav-arrow.prev');
+  const nextBtn = document.querySelector('.test-nav-arrow.next');
+  const wrapper = document.querySelector('.testimonials-wrapper');
+
+  if (slides.length === 0) return;
+
+  let currentIndex = 0;
+  let timer = null;
+
+  const goToSlide = (index) => {
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+
+    slides.forEach(slide => {
+      slide.style.transform = `translateX(-${index * 100}%)`;
     });
-    
-    // Update dots
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === index);
+
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === index);
     });
-    
-    currentSlide = index;
+
+    currentIndex = index;
   };
-  
-  // Add click event to dots
-  dots.forEach((dot, index) => {
+
+  dots.forEach((dot, idx) => {
     dot.addEventListener('click', () => {
-      showSlide(index);
-      resetInterval();
+      goToSlide(idx);
+      restartAuto();
     });
   });
-  
-  // Auto rotate testimonials
-  const startInterval = () => {
-    interval = setInterval(() => {
-      const nextSlide = (currentSlide + 1) % testimonials.length;
-      showSlide(nextSlide);
-    }, 5000); // Change slide every 5 seconds
-  };
-  
-  const resetInterval = () => {
-    clearInterval(interval);
-    startInterval();
-  };
-  
-  // Initialize the carousel
-  showSlide(0);
-  startInterval();
-  
-  // Pause on hover
-  const testimonialsContainer = document.querySelector('.testimonials-container');
-  if (testimonialsContainer) {
-    testimonialsContainer.addEventListener('mouseenter', () => {
-      clearInterval(interval);
-    });
-    
-    testimonialsContainer.addEventListener('mouseleave', () => {
-      startInterval();
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      goToSlide(currentIndex - 1);
+      restartAuto();
     });
   }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      goToSlide(currentIndex + 1);
+      restartAuto();
+    });
+  }
+
+  const startAuto = () => {
+    timer = setInterval(() => {
+      goToSlide(currentIndex + 1);
+    }, 6000);
+  };
+
+  const restartAuto = () => {
+    if (timer) clearInterval(timer);
+    startAuto();
+  };
+
+  if (wrapper) {
+    wrapper.addEventListener('mouseenter', () => clearInterval(timer));
+    wrapper.addEventListener('mouseleave', () => startAuto());
+  }
+
+  // Inicializa o primeiro slide
+  goToSlide(0);
+  startAuto();
 }

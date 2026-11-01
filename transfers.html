@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Translados & Transfers Executivos • Translatur Viagens</title>
+  <meta name="description" content="Transporte privativo do aeroporto ao hotel com pontualidade britânica, monitoramento de voos, cadeirinhas infantis inclusas e parcelamento em 12x." />
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230284c7'><path d='M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z'/></svg>" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Estilos Modulares -->
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/header.css">
+  <link rel="stylesheet" href="styles/search.css">
+  <link rel="stylesheet" href="styles/subpages.css">
+  <link rel="stylesheet" href="styles/footer.css">
+</head>
+<body>
+
+  <!-- Cabeçalho / Navegação -->
+  <header id="header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-paper-plane"></i></div>
+        <div class="logo-text">
+          <h1>Translatur</h1>
+          <span>Viagens & Turismo</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="index.html#destinations-deals">Pacotes</a></li>
+          <li><a href="index.html#services" class="active">Serviços</a></li>
+          <li><a href="index.html#why-us">Vantagens</a></li>
+          <li><a href="index.html#testimonials">Depoimentos</a></li>
+          <li><a href="#footer">Contato</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="hamburger" aria-label="Abrir Menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="nav-backdrop"></div>
+
+  <!-- Hero da Subpágina -->
+  <section class="subpage-hero hero-transfers">
+    <div class="container">
+      <div class="subpage-hero-content">
+        <div class="breadcrumb-nav">
+          <a href="index.html">Início</a> <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i>
+          <a href="index.html#services">Serviços</a> <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i>
+          <span>Translados & Transfers</span>
+        </div>
+        <h1>Translados Executivos & <span class="highlight">Transfers Seguros</span></h1>
+        <p>
+          Transporte privativo do aeroporto até seu resort ou hotel com pontualidade, veículos novos, motoristas com placa nominal e espera sem custo caso seu voo atrase.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filtro Dedicado de Transfers -->
+  <section style="padding: 0 0 50px 0;">
+    <div class="container">
+      <div class="subpage-filter-card">
+        <div style="display: flex; gap: 14px; margin-bottom: 18px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; flex-wrap: wrap;">
+          <label style="display: flex; align-items: center; gap: 6px; font-weight: 700; color: #0284c7; cursor: pointer; font-size: 0.9rem;">
+            <input type="radio" name="transfer-trip" checked> Ida e Volta (Aeroporto ↔ Hotel)
+          </label>
+          <label style="display: flex; align-items: center; gap: 6px; font-weight: 600; color: #64748b; cursor: pointer; font-size: 0.9rem;">
+            <input type="radio" name="transfer-trip"> Somente Chegada (In)
+          </label>
+          <label style="display: flex; align-items: center; gap: 6px; font-weight: 600; color: #64748b; cursor: pointer; font-size: 0.9rem;">
+            <input type="radio" name="transfer-trip"> Somente Partida (Out)
+          </label>
+        </div>
+
+        <div class="subpage-filter-grid">
+          <div class="search-field">
+            <div class="field-box">
+              <div class="field-icon"><i class="fas fa-plane-arrival"></i></div>
+              <div class="field-info">
+                <label>Aeroporto de Chegada</label>
+                <input type="text" placeholder="Ex: Recife (REC), Maceió (MCZ)..." value="Aeroporto Recife (REC)">
+              </div>
+            </div>
+          </div>
+
+          <div class="search-field">
+            <div class="field-box">
+              <div class="field-icon"><i class="fas fa-location-dot"></i></div>
+              <div class="field-info">
+                <label>Hotel ou Endereço de Destino</label>
+                <input type="text" placeholder="Nome do Resort ou Cidade" value="Porto de Galinhas (Qualquer Hotel)">
+              </div>
+            </div>
+          </div>
+
+          <div class="search-field">
+            <div class="field-box">
+              <div class="field-icon"><i class="fas fa-users"></i></div>
+              <div class="field-info">
+                <label>Passageiros & Malas</label>
+                <input type="text" value="3 Passageiros, 3 Malas" readonly>
+              </div>
+            </div>
+          </div>
+
+          <button class="search-submit-btn" style="height: 52px; padding: 0 28px;">
+            <i class="fas fa-magnifying-glass"></i>
+            <span>Cotar Rota</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rotas Populares de Transfers -->
+  <section style="padding: 20px 0 70px 0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fas fa-route"></i> Rotas Mais Solicitadas</span>
+        <h2 class="section-title">Valores Transparentes e Veículos Confortáveis</h2>
+        <p class="section-subtitle">Sem surpresas no desembarque ou tarifas dinâmicas de aplicativos. Preço fechado com pedágios inclusos.</p>
+      </div>
+
+      <div class="items-showcase-grid">
+
+        <!-- Rota 1 -->
+        <div class="transfer-route-card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="transfer-vehicle-badge"><i class="fas fa-car"></i> Sedan Executivo (até 4 pax)</span>
+            <span style="font-size: 0.8rem; font-weight: 700; color: #16a34a;"><i class="fas fa-circle-check"></i> Privativo</span>
+          </div>
+          <h3 class="transfer-route-title">
+            <span>Aeroporto Recife (REC)</span>
+            <i class="fas fa-arrow-right-arrow-left" style="color: #0284c7; font-size: 0.9rem;"></i>
+            <span>Porto de Galinhas</span>
+          </h3>
+          <p class="subpage-desc">Recepção no portão de desembarque com placa identificada, ar-condicionado, água mineral gelada e Wi-Fi a bordo.</p>
+          <div class="transfer-specs">
+            <span><i class="fas fa-clock"></i> ~55 minutos</span>
+            <span><i class="fas fa-suitcase"></i> Até 3 malas grandes</span>
+            <span><i class="fas fa-baby"></i> Cadeirinha inclusa</span>
+          </div>
+          <div class="subpage-card-footer">
+            <div class="subpage-price-meta">
+              <span class="label">Valor por veículo (trajeto)</span>
+              <span class="val">R$ 180</span>
+              <span class="sub">Ida e Volta: R$ 340 no Pix</span>
+            </div>
+            <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20reservar%20transfer%20Recife%20para%20Porto%20de%20Galinhas." target="_blank" class="btn-subpage-book">
+              Reservar <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Rota 2 -->
+        <div class="transfer-route-card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="transfer-vehicle-badge"><i class="fas fa-van-shuttle"></i> Van Executiva / SUV</span>
+            <span style="font-size: 0.8rem; font-weight: 700; color: #16a34a;"><i class="fas fa-circle-check"></i> Privativo</span>
+          </div>
+          <h3 class="transfer-route-title">
+            <span>Aeroporto POA / Caxias</span>
+            <i class="fas fa-arrow-right-arrow-left" style="color: #0284c7; font-size: 0.9rem;"></i>
+            <span>Gramado & Canela</span>
+          </h3>
+          <p class="subpage-desc">Subida da serra confortável pela Rota Romântica com motoristas experientes em curvas de serra e pedágios inclusos.</p>
+          <div class="transfer-specs">
+            <span><i class="fas fa-clock"></i> ~1h 50min</span>
+            <span><i class="fas fa-suitcase"></i> Até 6 malas</span>
+            <span><i class="fas fa-snowflake"></i> Climatização dupla</span>
+          </div>
+          <div class="subpage-card-footer">
+            <div class="subpage-price-meta">
+              <span class="label">Valor por veículo (trajeto)</span>
+              <span class="val">R$ 260</span>
+              <span class="sub">em até 6x no cartão</span>
+            </div>
+            <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20reservar%20transfer%20POA%20para%20Gramado." target="_blank" class="btn-subpage-book">
+              Reservar <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Rota 3 -->
+        <div class="transfer-route-card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="transfer-vehicle-badge"><i class="fas fa-car"></i> Sedan Executivo / Spin</span>
+            <span style="font-size: 0.8rem; font-weight: 700; color: #16a34a;"><i class="fas fa-circle-check"></i> Privativo</span>
+          </div>
+          <h3 class="transfer-route-title">
+            <span>Aeroporto Maceió (MCZ)</span>
+            <i class="fas fa-arrow-right-arrow-left" style="color: #0284c7; font-size: 0.9rem;"></i>
+            <span>Maragogi & Japaratinga</span>
+          </h3>
+          <p class="subpage-desc">Translado panorâmico pelo litoral de Alagoas direto ao seu resort pé na areia (Salinas, Japaratinga Lounge ou Pousadas).</p>
+          <div class="transfer-specs">
+            <span><i class="fas fa-clock"></i> ~2h 10min</span>
+            <span><i class="fas fa-suitcase"></i> Até 4 malas</span>
+            <span><i class="fas fa-shield"></i> Seguro passageiro</span>
+          </div>
+          <div class="subpage-card-footer">
+            <div class="subpage-price-meta">
+              <span class="label">Valor por veículo (trajeto)</span>
+              <span class="val">R$ 290</span>
+              <span class="sub">Ida e Volta com desconto</span>
+            </div>
+            <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20reservar%20transfer%20Macei%C3%B3%20para%20Maragogi." target="_blank" class="btn-subpage-book">
+              Reservar <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Rota 4 -->
+        <div class="transfer-route-card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="transfer-vehicle-badge"><i class="fas fa-car"></i> SUV Executivo VIP</span>
+            <span style="font-size: 0.8rem; font-weight: 700; color: #16a34a;"><i class="fas fa-circle-check"></i> Privativo</span>
+          </div>
+          <h3 class="transfer-route-title">
+            <span>Aeroporto Salvador (SSA)</span>
+            <i class="fas fa-arrow-right-arrow-left" style="color: #0284c7; font-size: 0.9rem;"></i>
+            <span>Praia do Forte / Imbassaí</span>
+          </h3>
+          <p class="subpage-desc">Trajeto rápido pela Linha Verde com veículos novos e motorista bilíngue caso receba convidados do exterior.</p>
+          <div class="transfer-specs">
+            <span><i class="fas fa-clock"></i> ~1h 10min</span>
+            <span><i class="fas fa-suitcase"></i> Até 4 malas</span>
+            <span><i class="fas fa-wifi"></i> Wi-Fi & Carregadores</span>
+          </div>
+          <div class="subpage-card-footer">
+            <div class="subpage-price-meta">
+              <span class="label">Valor por veículo (trajeto)</span>
+              <span class="val">R$ 240</span>
+              <span class="sub">em até 6x no cartão</span>
+            </div>
+            <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20reservar%20transfer%20Salvador%20para%20Praia%20do%20Forte." target="_blank" class="btn-subpage-book">
+              Reservar <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Rota 5 -->
+        <div class="transfer-route-card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="transfer-vehicle-badge"><i class="fas fa-truck-monster"></i> 4x4 Especial Neve</span>
+            <span style="font-size: 0.8rem; font-weight: 700; color: #16a34a;"><i class="fas fa-circle-check"></i> Especial</span>
+          </div>
+          <h3 class="transfer-route-title">
+            <span>Aeroporto Santiago (SCL)</span>
+            <i class="fas fa-arrow-right-arrow-left" style="color: #0284c7; font-size: 0.9rem;"></i>
+            <span>Vale Nevado / Farellones</span>
+          </h3>
+          <p class="subpage-desc">Veículos equipados com tração 4x4 e correntes de neve com motoristas certificados para as curvas da Cordilheira dos Andes.</p>
+          <div class="transfer-specs">
+            <span><i class="fas fa-clock"></i> ~1h 45min</span>
+            <span><i class="fas fa-person-skiing"></i> Suporte para pranchas/skis</span>
+            <span><i class="fas fa-shield-cat"></i> Seguro cordilheira</span>
+          </div>
+          <div class="subpage-card-footer">
+            <div class="subpage-price-meta">
+              <span class="label">Valor por veículo (trajeto)</span>
+              <span class="val">R$ 420</span>
+              <span class="sub">em até 10x sem juros</span>
+            </div>
+            <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20reservar%20transfer%20em%20Santiago%20para%20o%20Vale%20Nevado." target="_blank" class="btn-subpage-book">
+              Reservar <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Rota 6 -->
+        <div class="transfer-route-card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="transfer-vehicle-badge"><i class="fas fa-van-shuttle"></i> Van VIP Riviera Maya</span>
+            <span style="font-size: 0.8rem; font-weight: 700; color: #16a34a;"><i class="fas fa-circle-check"></i> Direto</span>
+          </div>
+          <h3 class="transfer-route-title">
+            <span>Aeroporto Cancún (CUN)</span>
+            <i class="fas fa-arrow-right-arrow-left" style="color: #0284c7; font-size: 0.9rem;"></i>
+            <span>Zona Hoteleira / Riviera</span>
+          </h3>
+          <p class="subpage-desc">Evite o assédio caótico dos quiosques do aeroporto de Cancún. Seu motorista oficial estará esperando na área reservada de agências credenciadas.</p>
+          <div class="transfer-specs">
+            <span><i class="fas fa-clock"></i> ~40 minutos</span>
+            <span><i class="fas fa-bottle-water"></i> Bebidas geladas inclusas</span>
+            <span><i class="fas fa-receipt"></i> Tarifa oficial sem extras</span>
+          </div>
+          <div class="subpage-card-footer">
+            <div class="subpage-price-meta">
+              <span class="label">Valor por veículo (trajeto)</span>
+              <span class="val">R$ 310</span>
+              <span class="sub">em até 10x sem juros</span>
+            </div>
+            <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20reservar%20transfer%20em%20Canc%C3%BAn." target="_blank" class="btn-subpage-book">
+              Reservar <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Padrões de Segurança dos Transfers -->
+  <section style="background-color: #f8fafc; padding: 70px 0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fas fa-award"></i> Padrão Translatur de Transporte</span>
+        <h2 class="section-title">Por Que Viajar com Nosso Transfer Privativo?</h2>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;">
+        <div style="background: #ffffff; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0;">
+          <div style="width: 48px; height: 48px; border-radius: 12px; background: #e0f2fe; color: #0284c7; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 14px;">
+            <i class="fas fa-radar"></i>
+          </div>
+          <h4 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Monitoramento de Voo</h4>
+          <p style="font-size: 0.88rem; color: #64748b; line-height: 1.5;">Se o seu voo adiantar ou atrasar horas, nosso motorista ajusta o horário automaticamente. Você nunca fica na mão.</p>
+        </div>
+
+        <div style="background: #ffffff; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0;">
+          <div style="width: 48px; height: 48px; border-radius: 12px; background: #fef3c7; color: #d97706; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 14px;">
+            <i class="fas fa-id-badge"></i>
+          </div>
+          <h4 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Recepção Nominal</h4>
+          <p style="font-size: 0.88rem; color: #64748b; line-height: 1.5;">Ao cruzar o portão de desembarque, nosso motorista estará com uma placa exibindo seu nome para facilitar o encontro.</p>
+        </div>
+
+        <div style="background: #ffffff; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0;">
+          <div style="width: 48px; height: 48px; border-radius: 12px; background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 14px;">
+            <i class="fas fa-baby-carriage"></i>
+          </div>
+          <h4 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Cadeirinhas Infantis Cortesia</h4>
+          <p style="font-size: 0.88rem; color: #64748b; line-height: 1.5;">Bebê conforto, cadeirinha ou assento de elevação instalados e higienizados sem custo adicional.</p>
+        </div>
+
+        <div style="background: #ffffff; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0;">
+          <div style="width: 48px; height: 48px; border-radius: 12px; background: #ede9fe; color: #7c3aed; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 14px;">
+            <i class="fas fa-shield-heart"></i>
+          </div>
+          <h4 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Seguro Total de Frota</h4>
+          <p style="font-size: 0.88rem; color: #64748b; line-height: 1.5;">Veículos revisados e segurados, com registro nos órgãos de transporte regulamentados (ANTT e equivalentes).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dúvidas Frequentes -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fas fa-circle-question"></i> Informações Úteis</span>
+        <h2 class="section-title">Dúvidas sobre Translados & Transfers</h2>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h4><i class="fas fa-check-circle" style="color: #0284c7;"></i> Como localizo meu motorista no aeroporto?</h4>
+          <p>Logo após retirar suas malas e passar pela porta automática de desembarque, nosso motorista estará aguardando na área de recepção segurando uma placa personalizada com o seu nome.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4><i class="fas fa-check-circle" style="color: #0284c7;"></i> O transfer é exclusivo para minha família?</h4>
+          <p>Sim! Todos os nossos transfers privativos são dedicados unicamente para você e seu grupo, sem paradas em hotéis de terceiros nem espera por outros passageiros.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4><i class="fas fa-check-circle" style="color: #0284c7;"></i> O que acontece se meu voo sofrer atraso?</h4>
+          <p>Nossa central monitora seu código de voo continuamente. Mesmo que o voo atrase 3 ou 4 horas, o motorista estará no saguão pronto para te receber no momento em que seu avião pousar, sem cobrança extra.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4><i class="fas fa-check-circle" style="color: #0284c7;"></i> Vocês levam animais de estimação?</h4>
+          <p>Sim, em caixas de transporte apropriadas para viagens pet friendly. Basta informar ao nosso consultor no momento do agendamento.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rodapé Compacto -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand">
+          <div class="logo">
+            <div class="logo-icon"><i class="fas fa-paper-plane"></i></div>
+            <div class="logo-text">
+              <h1 style="color: #fff; font-size: 1.35rem;">Translatur</h1>
+              <span>Viagens & Turismo</span>
+            </div>
+          </div>
+          <p>Agência especializada em mobilidade turística, transfers privativos e acolhimento em aeroportos.</p>
+          <div class="footer-social-links">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-links-col">
+          <h4>Serviços</h4>
+          <ul>
+            <li><a href="passagens.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Passagens Aéreas</a></li>
+            <li><a href="hospedagens.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Hotéis & Resorts</a></li>
+            <li><a href="passeios.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Passeios & Tours</a></li>
+            <li><a href="transfers.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Translados & Transfers</a></li>
+            <li><a href="cruzeiros.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Cruzeiros Marítimos</a></li>
+            <li><a href="seguro-viagem.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> Seguro Viagem</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4>Central de Apoio</h4>
+          <ul class="footer-contact-info">
+            <li><i class="fas fa-location-dot"></i> <span>Av. Paulista, 1000 - São Paulo, SP</span></li>
+            <li><i class="fas fa-phone"></i> <span>(11) 9999-9999 • Central 24h</span></li>
+            <li><i class="fas fa-clock"></i> <span>Seg à Sex: 09h às 19h | Sáb: 09h às 14h</span></li>
+          </ul>
+        </div>
+
+        <div class="footer-newsletter">
+          <h4>Alertas de Transfers</h4>
+          <p>Receba tarifas promocionais e dicas de translado:</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Digite seu melhor e-mail" required>
+            <button type="submit">Cadastrar</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-badges-bar">
+        <div class="agency-seals">
+          <span class="seal-pill"><i class="fas fa-shield-halved"></i> CADASTUR Ministério do Turismo</span>
+          <span class="seal-pill"><i class="fas fa-check-circle"></i> Agência Associada ABAV</span>
+          <span class="seal-pill"><i class="fas fa-lock"></i> Compra 100% Segura SSL</span>
+        </div>
+        <div class="payment-methods">
+          <span class="payment-label">Pagamento facilitado:</span>
+          <i class="fab fa-cc-visa" title="Visa"></i>
+          <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+          <i class="fas fa-qrcode" title="Pix com desconto"></i>
+          <i class="fas fa-barcode" title="Boleto Parcelado"></i>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <p>&copy; 2025 Translatur Viagens e Turismo Ltda. CNPJ: 00.000.000/0001-00. Todos os direitos reservados.</p>
+        <div>
+          <a href="index.html">Página Principal</a> &bull; 
+          <a href="#">Política de Privacidade</a> &bull; 
+          <a href="#">Termos e Condições</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script Principal para Navegação e Mobile Menu -->
+  <script type="module" src="scripts/main.js"></script>
+</body>
+</html>
