@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>Translatur - Viagens, Pacotes Turísticos e Passagens Aéreas</title>
   <meta name="description" content="Translatur: sua agência de viagens com pacotes completos, passagens aéreas e hotéis em até 12x sem juros. Consultoria personalizada e suporte 24h." />
   
@@ -143,6 +145,19 @@
 
         <!-- Formulário de Campos -->
         <div class="search-form">
+          <!-- Modalidade de Trajeto (Melhores Práticas de Mercado) -->
+          <div class="trip-type-bar" role="radiogroup" aria-label="Tipo de trajeto">
+            <button type="button" class="trip-type-btn active" data-trip="round" role="radio" aria-checked="true" id="btn-trip-round">
+              <i class="fas fa-arrows-left-right"></i> Ida e Volta
+            </button>
+            <button type="button" class="trip-type-btn" data-trip="one-way" role="radio" aria-checked="false" id="btn-trip-oneway">
+              <i class="fas fa-arrow-right"></i> Somente Ida
+            </button>
+            <button type="button" class="trip-type-btn" data-trip="multi" role="radio" aria-checked="false" id="btn-trip-multi">
+              <i class="fas fa-route"></i> Múltiplos Destinos
+            </button>
+          </div>
+
           <div class="search-grid">
             
             <!-- Campo Origem com Autocomplete -->

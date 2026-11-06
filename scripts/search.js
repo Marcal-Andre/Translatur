@@ -114,7 +114,6 @@ export const travelPackages = [
   }
 ];
 
-// Origens brasileiras e aeroportos de referência para o Autocomplete
 export const popularOrigins = [
   { city: 'São Paulo', code: 'SAO', airport: 'Todos os aeroportos (GRU / CGH / VCP)', state: 'SP, Brasil', badge: 'Hub Principal' },
   { city: 'São Paulo - Guarulhos', code: 'GRU', airport: 'Aeroporto Internacional de Guarulhos', state: 'SP, Brasil', badge: 'Internacional' },
@@ -208,7 +207,11 @@ function toggleFavorite(packageId) {
     showToast('Pacote removido dos favoritos.');
   }
 
-  localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favs));
+  try {
+    localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favs));
+  } catch (err) {
+    console.warn('Erro ao salvar favoritos no localStorage:', err);
+  }
   updateFavoritesBadge();
   return isAdded;
 }
@@ -219,6 +222,17 @@ function updateFavoritesBadge() {
   if (favChip) {
     favChip.innerHTML = `❤️ Favoritos (${favs.length})`;
   }
+}
+
+// Sanitização robusta contra DOM XSS para todas as entradas dinâmicas
+export function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 export function cleanText(text = '') {
@@ -243,6 +257,10 @@ export function setupSearch() {
   const filterChips = document.querySelectorAll('.chip-btn');
   const tabButtons = document.querySelectorAll('.tab-btn');
   const quickTags = document.querySelectorAll('.quick-tag-chip');
+  const tripTypeButtons = document.querySelectorAll('.trip-type-btn');
+
+  // Estado do tipo de viagem ('round' | 'oneway' | 'multi')
+  let currentTripType = 'round';
 
   // Pacotes gerados dinamicamente via busca livre de API
   let dynamicCustomPackages = [];
@@ -267,6 +285,13 @@ export function setupSearch() {
     }
   };
 
+  const toInputFormat = (d) => {
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   if (departureDateInput && returnDateInput) {
     const today = new Date();
     const defaultDeparture = new Date();
@@ -274,13 +299,6 @@ export function setupSearch() {
 
     const defaultReturn = new Date();
     defaultReturn.setDate(defaultDeparture.getDate() + 5);
-
-    const toInputFormat = (d) => {
-      const year = d.getFullYear();
-      const month = String(d.getMonth() + 1).padStart(2, '0');
-      const day = String(d.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
-    };
 
     departureDateInput.min = toInputFormat(today);
     departureDateInput.value = toInputFormat(defaultDeparture);
@@ -297,9 +315,13 @@ export function setupSearch() {
       });
     }
 
-    // Clique na área de Volta abre o calendário
+    // Clique na área de Volta abre o calendário com validação de modo "Somente Ida"
     if (retBox) {
       retBox.addEventListener('click', (e) => {
+        if (currentTripType === 'oneway') {
+          showToast('Modo "Somente Ida" ativo. Selecione "Ida e Volta" no topo para habilitar a data de retorno.');
+          return;
+        }
         if (e.target !== returnDateInput) {
           triggerDatePicker(returnDateInput);
         }
@@ -311,11 +333,16 @@ export function setupSearch() {
       triggerDatePicker(departureDateInput);
     });
 
-    returnDateInput.addEventListener('click', () => {
+    returnDateInput.addEventListener('click', (e) => {
+      if (currentTripType === 'oneway') {
+        e.preventDefault();
+        showToast('Modo "Somente Ida" ativo. Selecione "Ida e Volta" no topo para habilitar a data de retorno.');
+        return;
+      }
       triggerDatePicker(returnDateInput);
     });
 
-    // Ao escolher a data de ida, ajusta a data mínima da volta
+    // Ao escolher a data de ida, ajusta a data mínima da volta se estiver em Ida e Volta
     departureDateInput.addEventListener('change', () => {
       if (!departureDateInput.value) return;
       const selectedDep = new Date(departureDateInput.value + 'T00:00:00');
@@ -323,10 +350,54 @@ export function setupSearch() {
       nextDay.setDate(nextDay.getDate() + 1);
       returnDateInput.min = toInputFormat(nextDay);
 
-      const currentReturn = new Date(returnDateInput.value + 'T00:00:00');
-      if (isNaN(currentReturn.getTime()) || currentReturn <= selectedDep) {
-        returnDateInput.value = toInputFormat(nextDay);
+      if (currentTripType === 'round') {
+        const currentReturn = new Date(returnDateInput.value + 'T00:00:00');
+        if (isNaN(currentReturn.getTime()) || currentReturn <= selectedDep) {
+          returnDateInput.value = toInputFormat(nextDay);
+        }
       }
+    });
+  }
+
+  // 1.1 Gerenciamento dos Botões de Tipo de Viagem (Ida e Volta, Somente Ida, Múltiplos Destinos)
+  if (tripTypeButtons && tripTypeButtons.length > 0) {
+    tripTypeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const selectedTrip = btn.getAttribute('data-trip');
+        
+        if (selectedTrip === 'multi') {
+          // Dispara o modal e planejador exclusivo de Múltiplos Destinos
+          openMultiCityModal(passengersState);
+          return;
+        }
+
+        currentTripType = selectedTrip;
+        tripTypeButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        if (currentTripType === 'oneway') {
+          if (datesRow) datesRow.classList.add('one-way-mode');
+          if (returnDateInput) {
+            returnDateInput.disabled = true;
+            returnDateInput.value = '';
+          }
+          showToast('Modo "Somente Ida" selecionado: campo de data de volta desativado.');
+        } else {
+          if (datesRow) datesRow.classList.remove('one-way-mode');
+          if (returnDateInput) {
+            returnDateInput.disabled = false;
+            // Se estiver sem data de volta, recalcula automaticamente
+            if (!returnDateInput.value && departureDateInput && departureDateInput.value) {
+              const dep = new Date(departureDateInput.value + 'T00:00:00');
+              const ret = new Date(dep);
+              ret.setDate(ret.getDate() + 5);
+              returnDateInput.value = toInputFormat(ret);
+              returnDateInput.min = toInputFormat(new Date(dep.getTime() + 86400000));
+            }
+          }
+          showToast('Modo "Ida e Volta" ativo: escolha as datas de ida e retorno.');
+        }
+      });
     });
   }
 
@@ -410,7 +481,7 @@ export function setupSearch() {
       if (filtered.length === 0) {
         originAutocompleteBox.innerHTML = `
           <div class="autocomplete-hint">
-            <i class="fas fa-plane-slash" style="color: #94a3b8;"></i> Nenhuma cidade ou aeroporto encontrado para <em>"${rawQuery}"</em>.
+            <i class="fas fa-plane-slash" style="color: #94a3b8;"></i> Nenhuma cidade ou aeroporto encontrado para <em>"${escapeHtml(rawQuery)}"</em>.
           </div>
         `;
         originAutocompleteBox.classList.add('active');
@@ -418,14 +489,14 @@ export function setupSearch() {
       }
 
       originAutocompleteBox.innerHTML = filtered.map(o => `
-        <div class="autocomplete-item" data-origin="${o.city} (${o.code})">
+        <div class="autocomplete-item" data-origin="${escapeHtml(o.city)} (${escapeHtml(o.code)})">
           <div class="autocomplete-icon"><i class="fas fa-plane-departure"></i></div>
           <div class="autocomplete-text">
             <div class="autocomplete-title-row">
-              <span class="autocomplete-title">${o.city} (${o.code})</span>
-              <span class="autocomplete-badge">${o.badge}</span>
+              <span class="autocomplete-title">${escapeHtml(o.city)} (${escapeHtml(o.code)})</span>
+              <span class="autocomplete-badge">${escapeHtml(o.badge)}</span>
             </div>
-            <span class="autocomplete-subtitle">${o.airport} • ${o.state}</span>
+            <span class="autocomplete-subtitle">${escapeHtml(o.airport)} • ${escapeHtml(o.state)}</span>
           </div>
         </div>
       `).join('');
@@ -487,11 +558,11 @@ export function setupSearch() {
 
       if (filtered.length === 0) {
         destinationAutocompleteBox.innerHTML = `
-          <div class="autocomplete-item custom-api-search" data-destination="${rawQuery}" data-query="${rawQuery}">
+          <div class="autocomplete-item custom-api-search" data-destination="${escapeHtml(rawQuery)}" data-query="${escapeHtml(rawQuery)}">
             <div class="autocomplete-icon" style="background: #fef3c7; color: #d97706;"><i class="fas fa-magnifying-glass-location"></i></div>
             <div class="autocomplete-text">
               <div class="autocomplete-title-row">
-                <span class="autocomplete-title">Pesquisar "${rawQuery}"</span>
+                <span class="autocomplete-title">Pesquisar "${escapeHtml(rawQuery)}"</span>
                 <span class="autocomplete-badge" style="background: #fef3c7; color: #b45309;">API em Tempo Real</span>
               </div>
               <span class="autocomplete-subtitle">Carregar fotos reais e montar roteiro oficial via API</span>
@@ -500,14 +571,14 @@ export function setupSearch() {
         `;
       } else {
         destinationAutocompleteBox.innerHTML = filtered.map(d => `
-          <div class="autocomplete-item" data-destination="${d.name}" data-query="${d.query}">
-            <img src="${d.thumb}" alt="${d.name}" class="autocomplete-thumb" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=120&q=80'">
+          <div class="autocomplete-item" data-destination="${escapeHtml(d.name)}" data-query="${escapeHtml(d.query)}">
+            <img src="${escapeHtml(d.thumb)}" alt="${escapeHtml(d.name)}" class="autocomplete-thumb" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=120&q=80'">
             <div class="autocomplete-text">
               <div class="autocomplete-title-row">
-                <span class="autocomplete-title">${d.name}</span>
-                <span class="autocomplete-badge">${d.badge}</span>
+                <span class="autocomplete-title">${escapeHtml(d.name)}</span>
+                <span class="autocomplete-badge">${escapeHtml(d.badge)}</span>
               </div>
-              <span class="autocomplete-subtitle">${d.state}</span>
+              <span class="autocomplete-subtitle">${escapeHtml(d.state)}</span>
             </div>
           </div>
         `).join('');
@@ -632,7 +703,7 @@ export function setupSearch() {
           <p style="color: #64748b; max-width: 520px; margin: 0 auto 24px auto;">
             Nós montamos <strong>roteiros 100% personalizados</strong> para qualquer cidade do Brasil e do mundo com tarifas exclusivas de agência.
           </p>
-          <a href="https://wa.me/5511999999999?text=${encodeURIComponent('Olá! Gostaria de cotar um roteiro personalizado para ' + (destinationInput?.value || 'minha próxima viagem') + '.')}" target="_blank" class="btn-whatsapp">
+          <a href="https://wa.me/5511999999999?text=${encodeURIComponent('Olá! Gostaria de cotar um roteiro personalizado para ' + (destinationInput?.value || 'minha próxima viagem') + '.')}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
             <i class="fab fa-whatsapp"></i> Solicitar Cotação no WhatsApp
           </a>
         </div>
@@ -646,24 +717,24 @@ export function setupSearch() {
       const isFav = favorites.includes(pkg.id);
 
       return `
-        <article class="package-card" data-package-id="${pkg.id}">
+        <article class="package-card" data-package-id="${escapeHtml(pkg.id)}">
           <div class="package-image-wrap">
-            <img src="${pkg.image}" alt="${pkg.title}" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80';">
-            <span class="package-badge-tag ${pkg.badgeType}">${pkg.badge}</span>
-            <span class="package-duration-pill"><i class="fas fa-clock"></i> ${pkg.duration}</span>
-            <button class="btn-card-favorite ${isFav ? 'active' : ''}" data-id="${pkg.id}" title="${isFav ? 'Remover dos favoritos' : 'Salvar nos favoritos'}" aria-label="Favoritar">
+            <img src="${escapeHtml(pkg.image)}" alt="${escapeHtml(pkg.title)}" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80';">
+            <span class="package-badge-tag ${escapeHtml(pkg.badgeType)}">${escapeHtml(pkg.badge)}</span>
+            <span class="package-duration-pill"><i class="fas fa-clock"></i> ${escapeHtml(pkg.duration)}</span>
+            <button class="btn-card-favorite ${isFav ? 'active' : ''}" data-id="${escapeHtml(pkg.id)}" title="${isFav ? 'Remover dos favoritos' : 'Salvar nos favoritos'}" aria-label="Favoritar">
               <i class="${isFav ? 'fas' : 'far'} fa-heart"></i>
             </button>
           </div>
           <div class="package-body">
             <div class="package-location-row">
-              <span class="package-location"><i class="fas fa-map-marker-alt"></i> ${pkg.location}</span>
+              <span class="package-location"><i class="fas fa-map-marker-alt"></i> ${escapeHtml(pkg.location)}</span>
               <span class="package-rating"><i class="fas fa-star"></i> ${pkg.rating} (${pkg.reviewsCount})</span>
             </div>
-            <h3 class="package-title">${pkg.title}</h3>
+            <h3 class="package-title">${escapeHtml(pkg.title)}</h3>
             
             <div class="package-inclusions">
-              ${pkg.inclusions.map(inc => `<span class="inclusion-pill"><i class="fas fa-check"></i> ${inc}</span>`).join('')}
+              ${pkg.inclusions.map(inc => `<span class="inclusion-pill"><i class="fas fa-check"></i> ${escapeHtml(inc)}</span>`).join('')}
             </div>
             
             <div class="package-footer">
@@ -673,10 +744,10 @@ export function setupSearch() {
                 <span class="price-installments">ou ${pkg.installments}x de R$ ${installmentVal} sem juros</span>
               </div>
               <div class="package-actions">
-                <button class="btn-card-details" data-id="${pkg.id}" title="Ver detalhes completos do pacote">
+                <button class="btn-card-details" data-id="${escapeHtml(pkg.id)}" title="Ver detalhes completos do pacote">
                   Ver Detalhes
                 </button>
-                <a href="https://wa.me/5511999999999?text=${encodeURIComponent(`Olá! Vi o pacote "${pkg.title}" no site da Translatur e gostaria de receber uma cotação para ${passengersState.adults} adultos.`)}" target="_blank" class="btn-card-whatsapp" title="Cotação direta no WhatsApp">
+                <a href="https://wa.me/5511999999999?text=${encodeURIComponent(`Olá! Vi o pacote "${pkg.title}" no site da Translatur e gostaria de receber uma cotação para ${passengersState.adults} adultos.`)}" target="_blank" rel="noopener noreferrer" class="btn-card-whatsapp" title="Cotação direta no WhatsApp">
                   <i class="fab fa-whatsapp"></i>
                 </a>
               </div>
@@ -744,8 +815,7 @@ export function setupSearch() {
       return;
     }
 
-    // Se é um destino novo e livre (ex: "Fernando de Noronha", "Lençóis Maranhenses", "Jericoacoara", "Mendoza", "Lisboa"):
-    // Exibe Skeletons enquanto busca na API da Wikimedia em tempo real!
+    // Se é um destino novo e livre: exibe skeletons enquanto busca na API da Wikimedia
     packagesContainer.innerHTML = `
       <div class="skeleton-card">
         <div class="skeleton-box skeleton-image"></div>
@@ -767,12 +837,12 @@ export function setupSearch() {
       </div>
     `;
 
-    showToast(`🔍 Conectando à API de turismo e buscando imagens reais para "${rawQuery}"...`);
+    showToast(`🔍 Conectando à API de turismo e buscando imagens reais para "${escapeHtml(rawQuery)}"...`);
 
     // Busca via API
     const apiData = await fetchDestinationData(rawQuery, 'praia');
 
-    // Estimativa inteligente de preço de mercado brasileiro
+    // Estimativa de preço de mercado brasileiro
     const isInternational = rawQuery.includes('eua') || rawQuery.includes('europa') || rawQuery.includes('disney') || rawQuery.includes('paris') || rawQuery.includes('orlando') || rawQuery.includes('chile') || rawQuery.includes('argentina') || rawQuery.includes('cancun');
     const basePrice = isInternational ? 4690 : 2190;
     const customId = 'custom-' + rawQuery.toLowerCase().replace(/[^a-z0-9]/g, '-');
@@ -796,12 +866,11 @@ export function setupSearch() {
       apiSummary: apiData.summary
     };
 
-    // Remove pacote dinâmico anterior com mesmo ID e insere o novo no início
     dynamicCustomPackages = dynamicCustomPackages.filter(p => p.id !== customId);
     dynamicCustomPackages.unshift(newPackage);
 
     renderPackagesList();
-    showToast(`✨ Roteiro e imagens oficiais carregados para "${rawQuery}"!`);
+    showToast(`✨ Roteiro e imagens oficiais carregados para "${escapeHtml(rawQuery)}"!`);
   }
 
   // Render inicial dos pacotes
@@ -841,11 +910,11 @@ export function openPackageModal(pkg, passengersState = { adults: 2, children: 0
 
     modalBody.innerHTML = `
       <div style="position: relative; height: 260px; border-radius: 18px 18px 0 0; overflow: hidden;">
-        <img src="${pkg.image}" alt="${pkg.title}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80';">
+        <img src="${escapeHtml(pkg.image)}" alt="${escapeHtml(pkg.title)}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80';">
         <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 24px; background: linear-gradient(0deg, rgba(8,14,33,0.92) 0%, transparent 100%);">
-          <span style="background: #0284c7; color: #fff; font-size: 0.75rem; font-weight: 700; padding: 4px 12px; border-radius: 9999px;">${pkg.duration}</span>
-          <h2 style="color: #fff; font-size: 1.7rem; font-weight: 800; margin-top: 8px;">${pkg.title}</h2>
-          <p style="color: #cbd5e1; font-size: 0.9rem;"><i class="fas fa-map-marker-alt"></i> ${pkg.location}</p>
+          <span style="background: #0284c7; color: #fff; font-size: 0.75rem; font-weight: 700; padding: 4px 12px; border-radius: 9999px;">${escapeHtml(pkg.duration)}</span>
+          <h2 style="color: #fff; font-size: 1.7rem; font-weight: 800; margin-top: 8px;">${escapeHtml(pkg.title)}</h2>
+          <p style="color: #cbd5e1; font-size: 0.9rem;"><i class="fas fa-map-marker-alt"></i> ${escapeHtml(pkg.location)}</p>
         </div>
       </div>
       
@@ -888,14 +957,14 @@ export function openPackageModal(pkg, passengersState = { adults: 2, children: 0
 
         <h4 style="font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Sobre este Roteiro</h4>
         <p style="color: #475569; font-size: 0.94rem; line-height: 1.6; margin-bottom: 20px;">
-          ${pkg.highlights}
+          ${escapeHtml(pkg.highlights)}
         </p>
 
         <h4 style="font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 12px;">Inclusões confirmadas neste pacote:</h4>
         <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 28px;">
           ${pkg.inclusions.map(inc => `
             <li style="display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: #334155;">
-              <i class="fas fa-check-circle" style="color: #10b981;"></i> ${inc}
+              <i class="fas fa-check-circle" style="color: #10b981;"></i> ${escapeHtml(inc)}
             </li>
           `).join('')}
           <li style="display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: #334155;">
@@ -907,7 +976,7 @@ export function openPackageModal(pkg, passengersState = { adults: 2, children: 0
         </ul>
 
         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-          <a href="https://wa.me/5511999999999?text=${encodeURIComponent(`Olá! Vi o pacote "${pkg.title}" na Translatur para ${currentAdults} adulto(s) e ${currentChildren} criança(s) (Total estimado: R$ ${formattedTotal}). Gostaria de receber uma cotação oficial!`)}" target="_blank" class="btn-whatsapp" style="flex: 1; padding: 14px; font-size: 1rem; justify-content: center;">
+          <a href="https://wa.me/5511999999999?text=${encodeURIComponent(`Olá! Vi o pacote "${pkg.title}" na Translatur para ${currentAdults} adulto(s) e ${currentChildren} criança(s) (Total estimado: R$ ${formattedTotal}). Gostaria de receber uma cotação oficial!`)}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp" style="flex: 1; padding: 14px; font-size: 1rem; justify-content: center;">
             <i class="fab fa-whatsapp" style="font-size: 1.25rem;"></i> Solicitar Cotação Oficial no WhatsApp
           </a>
         </div>
@@ -942,6 +1011,207 @@ export function openPackageModal(pkg, passengersState = { adults: 2, children: 0
   };
 }
 
+// Modal Avançado de Múltiplos Destinos
+export function openMultiCityModal(passengersState = { adults: 2, children: 0 }) {
+  let modalOverlay = document.getElementById('multi-city-modal');
+  if (!modalOverlay) {
+    modalOverlay = document.createElement('div');
+    modalOverlay.className = 'modal-overlay';
+    modalOverlay.id = 'multi-city-modal';
+    modalOverlay.innerHTML = `
+      <div class="modal-card multi-city-modal-card">
+        <button class="modal-close" aria-label="Fechar Modal">&times;</button>
+        <div id="multi-city-modal-body"></div>
+      </div>
+    `;
+    document.body.appendChild(modalOverlay);
+  }
+
+  const modalBody = modalOverlay.querySelector('#multi-city-modal-body');
+  if (!modalBody) return;
+
+  const today = new Date();
+  const d1 = new Date();
+  d1.setDate(today.getDate() + 20);
+  const d2 = new Date(d1);
+  d2.setDate(d2.getDate() + 6);
+
+  const toInputFormat = (d) => {
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  let segments = [
+    { origin: 'São Paulo (SAO)', destination: 'Paris (PAR)', date: toInputFormat(d1) },
+    { origin: 'Paris (PAR)', destination: 'Roma (ROM)', date: toInputFormat(d2) }
+  ];
+
+  let currentAdults = passengersState.adults || 2;
+  let currentChildren = passengersState.children || 0;
+
+  const renderContent = () => {
+    modalBody.innerHTML = `
+      <div class="multi-city-header">
+        <div class="multi-city-badge"><i class="fas fa-route"></i> Roteiros Combinados</div>
+        <h2>Planejar Múltiplos Destinos</h2>
+        <p>Combine cidades e países em um único bilhete inteligente com suporte de nossos consultores especializados.</p>
+      </div>
+
+      <div class="multi-city-segments-list">
+        ${segments.map((seg, idx) => `
+          <div class="multi-city-segment-card" data-idx="${idx}">
+            <div class="segment-header-row">
+              <span class="segment-num-badge"><i class="fas fa-plane"></i> Trecho ${idx + 1}</span>
+              ${segments.length > 2 ? `<button type="button" class="btn-remove-segment" data-idx="${idx}" title="Remover este trecho"><i class="fas fa-trash-can"></i> Remover</button>` : ''}
+            </div>
+            <div class="segment-inputs-grid">
+              <div class="segment-field">
+                <label><i class="fas fa-plane-departure"></i> Origem</label>
+                <input type="text" class="input-segment-origin" data-idx="${idx}" value="${escapeHtml(seg.origin)}" placeholder="Ex: São Paulo (GRU)">
+              </div>
+              <div class="segment-field">
+                <label><i class="fas fa-plane-arrival"></i> Destino</label>
+                <input type="text" class="input-segment-dest" data-idx="${idx}" value="${escapeHtml(seg.destination)}" placeholder="Ex: Paris (CDG)">
+              </div>
+              <div class="segment-field date-field">
+                <label><i class="fas fa-calendar-day"></i> Data do Voo</label>
+                <input type="date" class="input-segment-date" data-idx="${idx}" value="${escapeHtml(seg.date)}" min="${toInputFormat(today)}">
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+
+      ${segments.length < 5 ? `
+        <button type="button" class="btn-add-segment" id="btn-add-segment-action">
+          <i class="fas fa-plus-circle"></i> Adicionar Trecho (${segments.length}/5)
+        </button>
+      ` : ''}
+
+      <div class="multi-city-passengers-bar">
+        <span class="label"><i class="fas fa-users"></i> Viajantes:</span>
+        <div class="controls">
+          <span style="font-weight: 600; color: #334155;">Adultos:</span>
+          <button type="button" class="counter-btn" id="mc-adults-minus" ${currentAdults <= 1 ? 'disabled' : ''}>-</button>
+          <strong style="min-width: 18px; text-align: center;">${currentAdults}</strong>
+          <button type="button" class="counter-btn" id="mc-adults-plus">+</button>
+          
+          <span style="margin-left: 14px; font-weight: 600; color: #334155;">Crianças:</span>
+          <button type="button" class="counter-btn" id="mc-child-minus" ${currentChildren <= 0 ? 'disabled' : ''}>-</button>
+          <strong style="min-width: 18px; text-align: center;">${currentChildren}</strong>
+          <button type="button" class="counter-btn" id="mc-child-plus">+</button>
+        </div>
+      </div>
+
+      <div class="multi-city-submit-box">
+        <button type="button" class="btn-submit-multi-city" id="btn-submit-multi-quote">
+          <i class="fab fa-whatsapp"></i> Solicitar Cotação Completa no WhatsApp
+        </button>
+        <span class="multi-city-hint"><i class="fas fa-shield-halved"></i> Sem custos ocultos • Cotação personalizada com tarifas de agência</span>
+      </div>
+    `;
+
+    // Sincronização em tempo real dos inputs
+    modalBody.querySelectorAll('.input-segment-origin').forEach(input => {
+      input.addEventListener('input', (e) => {
+        const i = parseInt(e.target.getAttribute('data-idx'), 10);
+        if (segments[i]) segments[i].origin = e.target.value;
+      });
+    });
+
+    modalBody.querySelectorAll('.input-segment-dest').forEach(input => {
+      input.addEventListener('input', (e) => {
+        const i = parseInt(e.target.getAttribute('data-idx'), 10);
+        if (segments[i]) segments[i].destination = e.target.value;
+      });
+    });
+
+    modalBody.querySelectorAll('.input-segment-date').forEach(input => {
+      input.addEventListener('change', (e) => {
+        const i = parseInt(e.target.getAttribute('data-idx'), 10);
+        if (segments[i]) segments[i].date = e.target.value;
+      });
+    });
+
+    // Remover trecho
+    modalBody.querySelectorAll('.btn-remove-segment').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = parseInt(btn.getAttribute('data-idx'), 10);
+        if (segments.length > 2) {
+          segments.splice(i, 1);
+          renderContent();
+        }
+      });
+    });
+
+    // Adicionar trecho
+    modalBody.querySelector('#btn-add-segment-action')?.addEventListener('click', () => {
+      if (segments.length < 5) {
+        const lastSeg = segments[segments.length - 1];
+        const nextDate = new Date(lastSeg.date + 'T00:00:00');
+        if (!isNaN(nextDate.getTime())) {
+          nextDate.setDate(nextDate.getDate() + 5);
+        }
+        segments.push({
+          origin: lastSeg.destination || '',
+          destination: '',
+          date: !isNaN(nextDate.getTime()) ? toInputFormat(nextDate) : toInputFormat(today)
+        });
+        renderContent();
+      }
+    });
+
+    // Contadores de passageiros
+    modalBody.querySelector('#mc-adults-minus')?.addEventListener('click', () => {
+      if (currentAdults > 1) { currentAdults--; renderContent(); }
+    });
+    modalBody.querySelector('#mc-adults-plus')?.addEventListener('click', () => {
+      if (currentAdults < 9) { currentAdults++; renderContent(); }
+    });
+    modalBody.querySelector('#mc-child-minus')?.addEventListener('click', () => {
+      if (currentChildren > 0) { currentChildren--; renderContent(); }
+    });
+    modalBody.querySelector('#mc-child-plus')?.addEventListener('click', () => {
+      if (currentChildren < 6) { currentChildren++; renderContent(); }
+    });
+
+    // Ação de envio para o WhatsApp oficial
+    modalBody.querySelector('#btn-submit-multi-quote')?.addEventListener('click', () => {
+      const hasIncomplete = segments.some(s => !s.origin.trim() || !s.destination.trim());
+      if (hasIncomplete) {
+        showToast('Por favor, preencha a origem e o destino de todos os trechos.');
+        return;
+      }
+
+      let message = `Olá! Gostaria de uma cotação para o seguinte roteiro de MÚLTIPLOS DESTINOS na Translatur:\n\n`;
+      segments.forEach((s, idx) => {
+        message += `✈️ Trecho ${idx + 1}: ${s.origin} ➔ ${s.destination} (${s.date || 'Data flexível'})\n`;
+      });
+      message += `\n👥 Viajantes: ${currentAdults} Adulto(s)` + (currentChildren > 0 ? `, ${currentChildren} Criança(s)` : '');
+      message += `\nVocês conseguem me enviar as opções e valores promocionais?`;
+
+      const whatsappUrl = `https://wa.me/5511999999999?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      modalOverlay.classList.remove('active');
+      showToast('Abrindo sua solicitação de múltiplos destinos no WhatsApp...');
+    });
+  };
+
+  renderContent();
+  modalOverlay.classList.add('active');
+
+  const closeBtn = modalOverlay.querySelector('.modal-close');
+  if (closeBtn) {
+    closeBtn.onclick = () => modalOverlay.classList.remove('active');
+  }
+
+  modalOverlay.onclick = (e) => {
+    if (e.target === modalOverlay) modalOverlay.classList.remove('active');
+  };
+}
+
 export function showToast(msg) {
   let toast = document.querySelector('.toast-notice');
   if (!toast) {
@@ -950,7 +1220,7 @@ export function showToast(msg) {
     document.body.appendChild(toast);
   }
 
-  toast.innerHTML = `<i class="fas fa-info-circle" style="color: #38bdf8;"></i> <span>${msg}</span>`;
+  toast.innerHTML = `<i class="fas fa-info-circle" style="color: #38bdf8;"></i> <span>${escapeHtml(msg)}</span>`;
   toast.classList.add('show');
 
   setTimeout(() => {
