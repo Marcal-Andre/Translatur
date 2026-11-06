@@ -558,17 +558,12 @@ export function setupSearch() {
 
       if (filtered.length === 0) {
         destinationAutocompleteBox.innerHTML = `
-          <div class="autocomplete-item custom-api-search" data-destination="${escapeHtml(rawQuery)}" data-query="${escapeHtml(rawQuery)}">
-            <div class="autocomplete-icon" style="background: #fef3c7; color: #d97706;"><i class="fas fa-magnifying-glass-location"></i></div>
-            <div class="autocomplete-text">
-              <div class="autocomplete-title-row">
-                <span class="autocomplete-title">Pesquisar "${escapeHtml(rawQuery)}"</span>
-                <span class="autocomplete-badge" style="background: #fef3c7; color: #b45309;">API em Tempo Real</span>
-              </div>
-              <span class="autocomplete-subtitle">Carregar fotos reais e montar roteiro oficial via API</span>
-            </div>
+          <div class="autocomplete-hint">
+            <i class="fas fa-location-dot" style="color: #94a3b8;"></i> Nenhuma cidade ou destino encontrado para <em>"${escapeHtml(rawQuery)}"</em>.
           </div>
         `;
+        destinationAutocompleteBox.classList.add('active');
+        return;
       } else {
         destinationAutocompleteBox.innerHTML = filtered.map(d => `
           <div class="autocomplete-item" data-destination="${escapeHtml(d.name)}" data-query="${escapeHtml(d.query)}">
@@ -837,7 +832,7 @@ export function setupSearch() {
       </div>
     `;
 
-    showToast(`🔍 Conectando à API de turismo e buscando imagens reais para "${escapeHtml(rawQuery)}"...`);
+    showToast(`🔍 Buscando as melhores opções e fotos para "${escapeHtml(rawQuery)}"...`);
 
     // Busca via API
     const apiData = await fetchDestinationData(rawQuery, 'praia');
@@ -870,7 +865,7 @@ export function setupSearch() {
     dynamicCustomPackages.unshift(newPackage);
 
     renderPackagesList();
-    showToast(`✨ Roteiro e imagens oficiais carregados para "${escapeHtml(rawQuery)}"!`);
+    showToast(`✨ Roteiro personalizado montado para "${escapeHtml(rawQuery)}"!`);
   }
 
   // Render inicial dos pacotes
